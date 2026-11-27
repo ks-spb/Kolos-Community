@@ -1,0 +1,75 @@
+{
+  "A": {
+    "missing_ids": [
+      "A01"
+    ],
+    "complete_ids": [
+      "A02"
+    ],
+    "excess_fresh_ids": [
+      "A03"
+    ],
+    "duplicate_ids": [
+      "A03"
+    ],
+    "failed_ids": [],
+    "stale_ids": [],
+    "unexpected_ids": []
+  },
+  "B": {
+    "missing_ids": [
+      "B01",
+      "B02"
+    ],
+    "complete_ids": [],
+    "excess_fresh_ids": [],
+    "duplicate_ids": [],
+    "failed_ids": [],
+    "stale_ids": [],
+    "unexpected_ids": []
+  },
+  "C": {
+    "missing_ids": [
+      "C01",
+      "C02"
+    ],
+    "complete_ids": [
+      "C03",
+      "C05",
+      "C06"
+    ],
+    "excess_fresh_ids": [
+      "C04"
+    ],
+    "duplicate_ids": [],
+    "failed_ids": [
+      "C06"
+    ],
+    "stale_ids": [
+      "C05"
+    ],
+    "unexpected_ids": [
+      "C99"
+    ]
+  },
+  "D": {
+    "missing_ids": [
+      "D03"
+    ],
+    "complete_ids": [
+      "D01",
+      "D02"
+    ],
+    "excess_fresh_ids": [],
+    "duplicate_ids": [
+      "D02"
+    ],
+    "failed_ids": [
+      "D02"
+    ],
+    "stale_ids": [
+      "D03"
+    ],
+    "unexpected_ids": []
+  }
+}
