@@ -92,7 +92,8 @@ def timezone_stamp(value: str) -> datetime:
     return stamp
 
 
-def promotions(data: dict, observed: datetime, snapshot: Path) -> tuple[dict, list[str], str]:
+def promotion_observation(data: dict, observed: datetime) -> tuple[dict[str, int], dict]:
+    """Collect fresh counts and diagnostics before applying a coverage rule."""
     manifest = data['manifest']
     expected = manifest['expected_promotions']
     unique_products = manifest['unique_products']
@@ -122,16 +123,22 @@ def promotions(data: dict, observed: datetime, snapshot: Path) -> tuple[dict, li
                 'Calendar IDs disagree with the manifest count')
     keys = sorted(expected_ids if expected_ids is not None else all_attempted)
     labels = {key: counts[key] for key in keys}
-    gaps, sha = exceptions(labels, snapshot)
     unknown_ids = max(expected - len(all_attempted), 0) if expected_ids is None else 0
     extras = (sorted(all_attempted.keys() - expected_ids) if expected_ids is not None else [])
     duplicates = sorted(key for key, count in all_attempted.items() if count > 1)
     facts = dict(expected=expected, fresh_exports=sum(counts.values()), unique_products=unique_products,
-                 missing_or_ambiguous=gaps, failed_ids=sorted(failures), stale_ids=sorted(stale),
+                 missing_or_ambiguous=[], failed_ids=sorted(failures), stale_ids=sorted(stale),
                  duplicate_ids=duplicates, unexpected_ids=extras, unidentified_missing_count=unknown_ids,
                  reported_ids=len(all_attempted))
+    return labels, facts
+
+
+def promotions(data: dict, observed: datetime, snapshot: Path) -> tuple[dict, list[str], str]:
+    labels, facts = promotion_observation(data, observed)
+    gaps, sha = exceptions(labels, snapshot)
+    facts['missing_or_ambiguous'] = gaps
     issues = [key for key, values in facts.items() if isinstance(values, list) and values]
-    if unknown_ids or len(all_attempted) > expected:
+    if facts['unidentified_missing_count'] or facts['reported_ids'] > facts['expected']:
         issues.append('coverage_count')
     return facts, issues, sha
 
