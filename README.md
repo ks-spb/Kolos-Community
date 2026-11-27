@@ -6,6 +6,8 @@
 
 [**Скачать Колос (.zip)**](https://github.com/ks-spb/Kolos-Community/archive/refs/heads/main.zip)
 
+![Колос сохраняет показ и повторяет перенос в тестовой форме с новым текстом](docs/first-task-demo.gif)
+
 ## Установка на Windows
 
 1. Установите Python для Windows. Тестовый сценарий проверен с Python 3.14. Откройте PowerShell и убедитесь, что команда `py -3 --version` показывает версию Python. [Скачать Python](https://www.python.org/downloads/windows/)
