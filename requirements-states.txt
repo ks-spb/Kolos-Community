@@ -1,0 +1,5 @@
+# Windows desktop adapter. Install using the same Python as run_main.bat.
+-r Glaz/requirements.txt
+pyautogui>=0.9.54,<1
+pynput>=1.7.6,<2
+uiautomation>=2.0.20,<3; sys_platform == 'win32'

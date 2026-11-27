@@ -1,0 +1,80 @@
+name: Kolos Browser Lab
+on:
+  push:
+    branches: [main]
+    paths: ['web/**', '.github/workflows/kolos-browser-lab.yml']
+  pull_request:
+    paths: ['web/**', '.github/workflows/kolos-browser-lab.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: kolos-browser-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+        working-directory: web
+      - run: npm test
+        working-directory: web
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kolos-browser-source
+          path: |
+            web/src/
+            web/signal/
+            web/disinhibition/
+            web/states/
+            web/neurons/
+            web/shared/
+            web/NEURONS.md
+            web/SHARED.md
+            web/tests/
+            web/build.mjs
+            web/bundle-source.mjs
+            web/index.template.html
+            web/package.json
+            web/package-lock.json
+            web/tsconfig.json
+            web/README.md
+            web/ALGORITHM.md
+            web/ACCEPTANCE.md
+            web/LANGUAGE.md
+            web/CAPABILITIES.md
+            web/dist/index.html
+            web/dist/neurons.html
+            .github/workflows/kolos-browser-lab.yml
+          include-hidden-files: true
+          retention-days: 14
+      - run: python -m pip install playwright==1.57.0
+      - run: python -m playwright install --with-deps chromium
+      - run: npm run test:browser
+        working-directory: web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kolos-browser-app
+          path: |
+            web/dist/index.html
+            web/dist/neurons.html
+            web/dist/shared.html
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-test-output
+          path: web/.test-output/
+          include-hidden-files: true
+          retention-days: 7

@@ -1,0 +1,115 @@
+name: Kolos Algorithm Acceptance
+
+on:
+  workflow_dispatch:
+  # Full evidence is required for mathematical/behavioral changes, not labels.
+  push:
+    branches: [main]
+    paths:
+      - 'web/shared/**'
+      - 'web/states/backward.mjs'
+      - 'kolos_states/backward.py'
+      - 'kolos_states/shared*'
+      - 'web/tests/shared*'
+      - 'tests/desktop/*shared*'
+      - 'web/states/core.mjs'
+      - 'web/states/goal-network.mjs'
+      - 'web/states/imagery.mjs'
+      - 'web/states/language.mjs'
+      - 'web/states/language-cases.mjs'
+      - 'web/tests/language*'
+      - 'kolos_states/language*'
+      - 'tests/desktop/*language*'
+      - 'web/states/imagery-cases.mjs'
+      - 'web/tests/imagery.test.mjs'
+      - 'web/tests/imagery_browser.py'
+      - 'kolos_states/imagery.py'
+      - 'kolos_states/imagery_experiment.py'
+      - 'web/states/environment.mjs'
+      - 'web/states/capability-cases.mjs'
+      - 'web/tests/goals.test.mjs'
+      - 'web/tests/states.test.mjs'
+      - 'web/tests/goals_browser.py'
+      - 'web/tests/states_browser.py'
+      - 'kolos_states/core.py'
+      - 'kolos_states/goal_network.py'
+      - 'kolos_states/capabilities.py'
+      - 'kolos_states/protocol.py'
+      - 'kolos_states/desktop.py'
+      - '.github/workflows/kolos-algorithm-acceptance.yml'
+
+permissions:
+  contents: read
+concurrency:
+  group: kolos-acceptance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ten-required-scenarios:
+    name: Twelve capabilities plus shared-memory interference gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+        working-directory: web
+      - name: Required algorithm acceptance
+        run: npm run test:acceptance
+        working-directory: web
+      - name: Native equivalents and JS/Python per-tick parity
+        run: python -m unittest discover -s tests/desktop -v
+      - name: Native ten-capability evidence (no real OS actions)
+        run: python -m kolos_states.capabilities --evidence tests/desktop-output/capabilities
+      - name: Shared imagery versus external evidence (Python)
+        run: python -m kolos_states.imagery_experiment --evidence tests/desktop-output/capabilities
+      - name: Language experience to imagery (Python, no OS effects)
+        run: python -m kolos_states.language_experiment --evidence tests/desktop-output/language
+      - name: One native memory for all twelve capabilities
+        run: python -m kolos_states.shared_experiment --evidence tests/desktop-output/shared
+      - run: python -m pip install playwright==1.57.0
+      - run: python -m playwright install --with-deps chromium
+      - name: Required browser acceptance
+        run: npm run test:acceptance:browser
+        working-directory: web
+      - name: Record the tested commit and evidence scope
+        if: always()
+        env:
+          ACCEPTANCE_JOB_STATUS: ${{ job.status }}
+        run: |
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          files = ['web/states/core.mjs', 'web/states/goal-network.mjs',
+                   'kolos_states/core.py', 'kolos_states/goal_network.py',
+                   'web/states/imagery.mjs', 'kolos_states/imagery.py',
+                   'web/states/language.mjs', 'kolos_states/language.py',
+                   'web/states/backward.mjs', 'kolos_states/backward.py']
+          out = Path('tests/desktop-output/capabilities'); out.mkdir(parents=True, exist_ok=True)
+          report = {'schema': 'kolos-acceptance-provenance/1', 'commit': os.environ['GITHUB_SHA'],
+                    'run_id': os.environ['GITHUB_RUN_ID'], 'status': os.environ['ACCEPTANCE_JOB_STATUS'],
+                    'scope': '10 simulated capabilities + experiment 11 shared imagery + experiment 12 learned language, one shared-memory 1-12 curriculum, mechanism controls, Python parity, real HTTP browser UI; NOT user-desktop certification',
+                    'source_sha256': {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files}}
+          (out/'provenance.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kolos-algorithm-acceptance-evidence
+          path: |
+            web/.test-output/
+            web/dist/index.html
+            web/dist/shared.html
+            web/dist/neurons.html
+            tests/desktop-output/capabilities/
+            tests/desktop-output/language/
+            tests/desktop-output/shared/
+          include-hidden-files: true
+          retention-days: 14

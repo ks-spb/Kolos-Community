@@ -1,0 +1,1868 @@
+{
+  "protocol": {
+    "version": 1,
+    "seeds": [
+      3000,
+      3001,
+      3002,
+      3003,
+      3004,
+      3005,
+      3006,
+      3007,
+      3008,
+      3009
+    ],
+    "development_seed": 0,
+    "families": [
+      "chain",
+      "branches",
+      "equal_diamond",
+      "cycles",
+      "dense",
+      "disconnected"
+    ],
+    "selectors": [
+      "native",
+      "native_low_threshold",
+      "dijkstra_cached"
+    ],
+    "scenarios": [
+      "static",
+      "during_spread",
+      "after_click",
+      "pending_click"
+    ],
+    "training": "One separate MOVE-CHECK-CLICK demonstration per edge; no full route",
+    "capacity": "At most 20 demonstrated edges: production learner limit of 20 lessons; no bypass",
+    "weights": "Controlled initial backward confidence .84..98; equal_diamond .9; same memory for all arms",
+    "learning": "Off throughout; tests composition and goal replacement, not adaptation",
+    "config": "Production defaults, except native_low_threshold routeThreshold=0.250001",
+    "low_threshold_reason": "Pure sensory contribution is at most .25; 1e-6 extra still requires goal history",
+    "dijkstra": "Existing weighted Dijkstra criterion, policy cached across fragments; invalidated on goal/graph edits",
+    "goal_change": "Public start_goals API resets current episode and waves for every selector",
+    "delivery": "during_spread: after 2 selector calls, A->B; after_click: initial vertex 2 -> vertex 0 after first acknowledged click; pending_click: initial vertex 2 -> A, queued at click dispatch and delivered after its receipt",
+    "scoring": "Oracle uses private world graph; success and correct unreachable refusal reported separately; unreachable assessed at actual goal delivery location",
+    "advantage": "Higher paired correctness, fewer off-goal/failed actions, or lower latency at equal correctness; report every family and scenario, no tuning on held-out results",
+    "tie_policy": "Both equal-cost routes are valid; native ambiguity is a refusal, not a correctness advantage",
+    "limits": "Same 100 waves, 1800 ticks per goal; host cap 1900 iterations; no OS, LLM or perception-noise test"
+  },
+  "sources": {
+    "kolos_states/backward.py": "3d2c400f5cde94b43a91f8d9c0174d113e07559f7f7d7225ad2547f0a8bae947",
+    "kolos_states/core.py": "9d162e6521d32a3bb8db097e7a6d4257846310bb6caa289d6e195c4bbf151dc4",
+    "kolos_states/dynamics.py": "d2fd793bd0b49d85c815e35366929ae661c90fb5aa8418a8d7f9034b84da3180",
+    "kolos_states/experience.py": "9f32e2c300f26d9911cdea31be2e315f062ac2218ff1e325269bac0913cc7019",
+    "kolos_states/goal_network.py": "dd43106b50e467ef44a11a086a1b8bb7ee11d77892d2d190f4ba9f57463d2892",
+    "kolos_states/memory.py": "2c2128c2778df5ac91b77584f3733b99a9af0bf084fc635ca8886b90593481bf",
+    "kolos_states/protocol.py": "6c93d469f25b4bacf954eecef70e77fb3a4334bb5ae7b8771d4fd3f10b27c343",
+    "kolos_states/route_selection.py": "19201b26735068c2d5eee6fc13a98f0f642e714d6b58ddc7e0b6fa13341097dd",
+    "kolos_states/simulator.py": "1223d9f18c9c9920041af42117d687fc55777cf77c3e6a67e85fa932c7cb982a",
+    "kolos_states/storage.py": "29f582bf376dcc162b95ec9d55644037c8e7b72d2e85ed7ffa977f9cfc26c59a",
+    "kolos_states/transfer/__init__.py": "231f4c0020fb86d8f3d58720424b8f751c05e2a9469f082cc89750ede94b6f22",
+    "kolos_states/transfer/__main__.py": "8bf738aa31142cd6359cdc5f6366f161380d2183a91ccb63f0690297e6539e6a",
+    "kolos_states/transfer/planner.py": "5b66561cd947c6d8bad899fdb33da3daa4281d59e91372965cd9f166b1f67e21",
+    "kolos_states/transfer/report.py": "6df7fda1f8647bf24d2182896219f2fc249d116ad22dd80fb06a3dc0193d7f65",
+    "kolos_states/transfer/restart.py": "26646fd5fd6d1c84f7e9a4f45771f57ce7b2f713b20c1bd171f41c99a329c7ab",
+    "kolos_states/transfer/runner.py": "5f547618f67cde281d70a4049e331c9c344850dd30c008470f7be37aefbbd906",
+    "kolos_states/transfer/selection_controls.py": "f39b4170617719501c63371cab2a0e64bd4a562162c7a1605aed838e90a48d21",
+    "kolos_states/transfer/suite.py": "361490c5d24fe33f588b8f252e32552d31bc458b948a3172eb34fdab8f2c0525",
+    "kolos_states/transfer/world.py": "6859113db948e2a9f721cd3c09bbf27373cfdf238ea0863b761066c8a33a1e3c",
+    "kolos_states/topology_experiment/oracle.py": "878b63d1a584cfa25f4915d514818dfe4c4949a0a38c17dae51f51156592749a",
+    "kolos_states/topology_experiment/report.py": "3d463a045b877b3f7a4a58910531cec79afdab3daaca7b863fbf9609f044e0e4",
+    "kolos_states/topology_experiment/selectors.py": "36d166821c11ca010cb200f28850755fb3fb6fc28246b61640fc3e9c883ccdfa",
+    "kolos_states/topology_experiment/suite.py": "9da1454b8e96bec6736b06c1c8334c352d21050d70ffe8940ba5c372b718921a",
+    "kolos_states/topology_experiment/topologies.py": "17781506dfc078d8842c030872e15eb16954a7ccafd8602d5b507cfd4b754fcf",
+    "kolos_states/topology_experiment/trial.py": "62aa90fc99821a47d4f581aabed103097492808fd3385b1b053f54aa604be09b",
+    "kolos_states/topology_experiment/validate.py": "ff8af1123437f08befaa5cb0ebc65c8e3a04130d7eb8b9ad72a4f37d68247c48",
+    "kolos_states/topology_experiment/world.py": "8acb66c183d8ccad8c337664e288bab9d4f1a306c94901c0a1baea216c4cb487",
+    "kolos_states/topology_experiment/__init__.py": "914e665f47a9cffb127f1e0fe256eff5c52374e8ce53d319fa0e5d3d33d16215",
+    "kolos_states/topology_experiment/__main__.py": "bd5221465123cd374870cf6269f3f77e956d5dbdc57237ce50ff2c377719f423"
+  },
+  "started_utc": "2026-11-10T06:49:01.928661+00:00",
+  "finished_utc": "2026-11-10T06:53:48.239026+00:00",
+  "python": "3.14.7",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "summary": {
+    "totals": {
+      "dijkstra_cached": {
+        "n": 240,
+        "reachable": 200,
+        "success": 200,
+        "correct": 240,
+        "delivered": 180,
+        "delivered_success": 150,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 40,
+          "complete": 200
+        },
+        "median_ticks": 58.0,
+        "median_route_ms": 13.8784,
+        "median_total_ms": 82.92840000000001,
+        "median_response_ticks": 50.0,
+        "median_cache_builds": 2.0
+      },
+      "native": {
+        "n": 240,
+        "reachable": 200,
+        "success": 81,
+        "correct": 121,
+        "delivered": 180,
+        "delivered_success": 71,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "ambiguous": 10,
+          "blocked": 149,
+          "complete": 81
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 271.45754999999997,
+        "median_total_ms": 405.409,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "native_low_threshold": {
+        "n": 240,
+        "reachable": 200,
+        "success": 180,
+        "correct": 220,
+        "delivered": 180,
+        "delivered_success": 140,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "ambiguous": 20,
+          "blocked": 40,
+          "complete": 180
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 225.80615,
+        "median_total_ms": 347.91004999999996,
+        "median_response_ticks": 80.0,
+        "median_cache_builds": 0.0
+      }
+    },
+    "groups": {
+      "branches/dijkstra_cached/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 70.0,
+        "median_route_ms": 16.14265,
+        "median_total_ms": 107.05375000000001,
+        "median_response_ticks": 62.0,
+        "median_cache_builds": 2.0
+      },
+      "branches/dijkstra_cached/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 28.0,
+        "median_route_ms": 6.98735,
+        "median_total_ms": 44.9463,
+        "median_response_ticks": 26.0,
+        "median_cache_builds": 2.0
+      },
+      "branches/dijkstra_cached/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 62.0,
+        "median_route_ms": 17.25345,
+        "median_total_ms": 108.21199999999999,
+        "median_response_ticks": 54.0,
+        "median_cache_builds": 2.0
+      },
+      "branches/dijkstra_cached/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 62.0,
+        "median_route_ms": 14.76005,
+        "median_total_ms": 83.30985,
+        "median_response_ticks": null,
+        "median_cache_builds": 1.0
+      },
+      "branches/native/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 111.0,
+        "median_route_ms": 385.40085,
+        "median_total_ms": 573.5744,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "branches/native/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 49.5,
+        "median_route_ms": 85.8826,
+        "median_total_ms": 154.3776,
+        "median_response_ticks": 47.5,
+        "median_cache_builds": 0.0
+      },
+      "branches/native/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 2,
+        "correct": 2,
+        "delivered": 10,
+        "delivered_success": 2,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 8,
+          "complete": 2
+        },
+        "median_ticks": 111.0,
+        "median_route_ms": 382.15175,
+        "median_total_ms": 561.3503000000001,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "branches/native/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 317.95985,
+        "median_total_ms": 460.56714999999997,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "branches/native_low_threshold/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 123.0,
+        "median_route_ms": 271.3043,
+        "median_total_ms": 457.2442,
+        "median_response_ticks": 111.5,
+        "median_cache_builds": 0.0
+      },
+      "branches/native_low_threshold/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 45.5,
+        "median_route_ms": 71.92595,
+        "median_total_ms": 132.2031,
+        "median_response_ticks": 43.5,
+        "median_cache_builds": 0.0
+      },
+      "branches/native_low_threshold/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 101.5,
+        "median_route_ms": 228.6886,
+        "median_total_ms": 406.3762,
+        "median_response_ticks": 90.0,
+        "median_cache_builds": 0.0
+      },
+      "branches/native_low_threshold/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 136.0,
+        "median_route_ms": 254.58065,
+        "median_total_ms": 408.389,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "chain/dijkstra_cached/after_click": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 108.0,
+        "median_route_ms": 69.33865,
+        "median_total_ms": 190.7973,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 2.0
+      },
+      "chain/dijkstra_cached/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 44.0,
+        "median_route_ms": 8.05195,
+        "median_total_ms": 58.48865,
+        "median_response_ticks": 42.0,
+        "median_cache_builds": 2.0
+      },
+      "chain/dijkstra_cached/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 82.0,
+        "median_route_ms": 13.343050000000002,
+        "median_total_ms": 99.3928,
+        "median_response_ticks": 74.0,
+        "median_cache_builds": 2.0
+      },
+      "chain/dijkstra_cached/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 82.0,
+        "median_route_ms": 13.0567,
+        "median_total_ms": 87.42515,
+        "median_response_ticks": null,
+        "median_cache_builds": 1.0
+      },
+      "chain/native/after_click": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 113.0,
+        "median_route_ms": 259.5499,
+        "median_total_ms": 393.7944,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "chain/native/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 3,
+        "correct": 3,
+        "delivered": 10,
+        "delivered_success": 3,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 7,
+          "complete": 3
+        },
+        "median_ticks": 102.0,
+        "median_route_ms": 238.9069,
+        "median_total_ms": 356.44015,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "chain/native/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 113.0,
+        "median_route_ms": 263.975,
+        "median_total_ms": 404.25789999999995,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "chain/native/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 302.33849999999995,
+        "median_total_ms": 447.82730000000004,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "chain/native_low_threshold/after_click": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 110.0,
+        "median_route_ms": 252.60289999999998,
+        "median_total_ms": 390.83215,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "chain/native_low_threshold/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 64.0,
+        "median_route_ms": 81.1189,
+        "median_total_ms": 159.70605,
+        "median_response_ticks": 62.0,
+        "median_cache_builds": 0.0
+      },
+      "chain/native_low_threshold/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 158.0,
+        "median_route_ms": 227.8391,
+        "median_total_ms": 398.50685,
+        "median_response_ticks": 148.0,
+        "median_cache_builds": 0.0
+      },
+      "chain/native_low_threshold/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 175.0,
+        "median_route_ms": 293.5546,
+        "median_total_ms": 498.399,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "cycles/dijkstra_cached/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 26.0,
+        "median_route_ms": 12.420649999999998,
+        "median_total_ms": 67.63055,
+        "median_response_ticks": 18.0,
+        "median_cache_builds": 2.0
+      },
+      "cycles/dijkstra_cached/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 28.0,
+        "median_route_ms": 16.01415,
+        "median_total_ms": 74.96275,
+        "median_response_ticks": 26.0,
+        "median_cache_builds": 2.0
+      },
+      "cycles/dijkstra_cached/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 58.0,
+        "median_route_ms": 25.38325,
+        "median_total_ms": 115.9554,
+        "median_response_ticks": 50.0,
+        "median_cache_builds": 2.0
+      },
+      "cycles/dijkstra_cached/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 58.0,
+        "median_route_ms": 30.33965,
+        "median_total_ms": 120.71605,
+        "median_response_ticks": null,
+        "median_cache_builds": 1.0
+      },
+      "cycles/native/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 41.5,
+        "median_route_ms": 134.3645,
+        "median_total_ms": 214.90875,
+        "median_response_ticks": 30.0,
+        "median_cache_builds": 0.0
+      },
+      "cycles/native/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 53.0,
+        "median_route_ms": 350.09545,
+        "median_total_ms": 530.1927000000001,
+        "median_response_ticks": 51.0,
+        "median_cache_builds": 0.0
+      },
+      "cycles/native/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 111.0,
+        "median_route_ms": 680.7323,
+        "median_total_ms": 903.8143,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "cycles/native/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 652.8353,
+        "median_total_ms": 844.1674499999999,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "cycles/native_low_threshold/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 41.5,
+        "median_route_ms": 138.464,
+        "median_total_ms": 227.77974999999998,
+        "median_response_ticks": 30.0,
+        "median_cache_builds": 0.0
+      },
+      "cycles/native_low_threshold/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 53.0,
+        "median_route_ms": 249.88615,
+        "median_total_ms": 405.15985,
+        "median_response_ticks": 51.0,
+        "median_cache_builds": 0.0
+      },
+      "cycles/native_low_threshold/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 163.5,
+        "median_route_ms": 863.65305,
+        "median_total_ms": 1199.3951,
+        "median_response_ticks": 152.5,
+        "median_cache_builds": 0.0
+      },
+      "cycles/native_low_threshold/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 192.5,
+        "median_route_ms": 1016.60445,
+        "median_total_ms": 1374.36955,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "dense/dijkstra_cached/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 22.0,
+        "median_route_ms": 12.26065,
+        "median_total_ms": 59.25045,
+        "median_response_ticks": 14.0,
+        "median_cache_builds": 2.0
+      },
+      "dense/dijkstra_cached/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 20.0,
+        "median_route_ms": 12.785350000000001,
+        "median_total_ms": 53.3026,
+        "median_response_ticks": 18.0,
+        "median_cache_builds": 2.0
+      },
+      "dense/dijkstra_cached/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 22.0,
+        "median_route_ms": 12.2875,
+        "median_total_ms": 59.6082,
+        "median_response_ticks": 14.0,
+        "median_cache_builds": 2.0
+      },
+      "dense/dijkstra_cached/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 18.0,
+        "median_route_ms": 8.25945,
+        "median_total_ms": 28.93445,
+        "median_response_ticks": null,
+        "median_cache_builds": 1.0
+      },
+      "dense/native/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 33.5,
+        "median_route_ms": 119.29050000000001,
+        "median_total_ms": 203.42535,
+        "median_response_ticks": 22.0,
+        "median_cache_builds": 0.0
+      },
+      "dense/native/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 32.5,
+        "median_route_ms": 124.1834,
+        "median_total_ms": 184.31615,
+        "median_response_ticks": 30.5,
+        "median_cache_builds": 0.0
+      },
+      "dense/native/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 33.5,
+        "median_route_ms": 144.38760000000002,
+        "median_total_ms": 215.5061,
+        "median_response_ticks": 22.0,
+        "median_cache_builds": 0.0
+      },
+      "dense/native/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 31.0,
+        "median_route_ms": 110.0864,
+        "median_total_ms": 148.52345,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "dense/native_low_threshold/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 33.5,
+        "median_route_ms": 118.32990000000001,
+        "median_total_ms": 194.33929999999998,
+        "median_response_ticks": 22.0,
+        "median_cache_builds": 0.0
+      },
+      "dense/native_low_threshold/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 32.5,
+        "median_route_ms": 122.5537,
+        "median_total_ms": 181.90375,
+        "median_response_ticks": 30.5,
+        "median_cache_builds": 0.0
+      },
+      "dense/native_low_threshold/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 33.5,
+        "median_route_ms": 113.42515,
+        "median_total_ms": 190.5944,
+        "median_response_ticks": 22.0,
+        "median_cache_builds": 0.0
+      },
+      "dense/native_low_threshold/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 31.0,
+        "median_route_ms": 114.85565,
+        "median_total_ms": 154.00775,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/dijkstra_cached/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 46.0,
+        "median_route_ms": 10.0994,
+        "median_total_ms": 72.2741,
+        "median_response_ticks": 38.0,
+        "median_cache_builds": 2.0
+      },
+      "disconnected/dijkstra_cached/during_spread": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 102.0,
+        "median_route_ms": 89.3519,
+        "median_total_ms": 228.56105,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 2.0
+      },
+      "disconnected/dijkstra_cached/pending_click": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 108.0,
+        "median_route_ms": 95.74905000000001,
+        "median_total_ms": 253.3885,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 2.0
+      },
+      "disconnected/dijkstra_cached/static": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 88.14245,
+        "median_total_ms": 214.746,
+        "median_response_ticks": null,
+        "median_cache_builds": 1.0
+      },
+      "disconnected/native/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 6,
+        "correct": 6,
+        "delivered": 10,
+        "delivered_success": 6,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 4,
+          "complete": 6
+        },
+        "median_ticks": 97.5,
+        "median_route_ms": 207.60590000000002,
+        "median_total_ms": 353.41705,
+        "median_response_ticks": 84.0,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/native/during_spread": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 102.0,
+        "median_route_ms": 316.37295,
+        "median_total_ms": 465.2786,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/native/pending_click": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 113.0,
+        "median_route_ms": 332.3346,
+        "median_total_ms": 493.56925,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/native/static": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 350.2006,
+        "median_total_ms": 503.28954999999996,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/native_low_threshold/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 64.0,
+        "median_route_ms": 88.26735,
+        "median_total_ms": 172.8231,
+        "median_response_ticks": 54.0,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/native_low_threshold/during_spread": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 102.0,
+        "median_route_ms": 332.4697,
+        "median_total_ms": 486.4115,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/native_low_threshold/pending_click": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 110.0,
+        "median_route_ms": 312.90045,
+        "median_total_ms": 496.6768,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "disconnected/native_low_threshold/static": {
+        "n": 10,
+        "reachable": 0,
+        "success": 0,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 321.77895,
+        "median_total_ms": 462.23220000000003,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/dijkstra_cached/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 66.0,
+        "median_route_ms": 11.8134,
+        "median_total_ms": 80.89905,
+        "median_response_ticks": 58.0,
+        "median_cache_builds": 2.0
+      },
+      "equal_diamond/dijkstra_cached/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 28.0,
+        "median_route_ms": 6.4702,
+        "median_total_ms": 44.091849999999994,
+        "median_response_ticks": 26.0,
+        "median_cache_builds": 2.0
+      },
+      "equal_diamond/dijkstra_cached/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 58.0,
+        "median_route_ms": 10.4238,
+        "median_total_ms": 69.97395,
+        "median_response_ticks": 50.0,
+        "median_cache_builds": 2.0
+      },
+      "equal_diamond/dijkstra_cached/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 58.0,
+        "median_route_ms": 10.6772,
+        "median_total_ms": 63.79644999999999,
+        "median_response_ticks": null,
+        "median_cache_builds": 1.0
+      },
+      "equal_diamond/native/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 111.0,
+        "median_route_ms": 288.56690000000003,
+        "median_total_ms": 437.06809999999996,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/native/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "ambiguous": 10
+        },
+        "median_ticks": 102.0,
+        "median_route_ms": 251.67925000000002,
+        "median_total_ms": 373.4914,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/native/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 111.0,
+        "median_route_ms": 260.57695,
+        "median_total_ms": 388.25415,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/native/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "blocked": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 279.3202,
+        "median_total_ms": 400.82000000000005,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/native_low_threshold/after_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 111.0,
+        "median_route_ms": 157.68525,
+        "median_total_ms": 278.63295,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/native_low_threshold/during_spread": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 10,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "ambiguous": 10
+        },
+        "median_ticks": 102.0,
+        "median_route_ms": 280.0962,
+        "median_total_ms": 414.27535,
+        "median_response_ticks": 100.0,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/native_low_threshold/pending_click": {
+        "n": 10,
+        "reachable": 10,
+        "success": 10,
+        "correct": 10,
+        "delivered": 10,
+        "delivered_success": 10,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "complete": 10
+        },
+        "median_ticks": 91.0,
+        "median_route_ms": 108.84195,
+        "median_total_ms": 200.21715,
+        "median_response_ticks": 80.0,
+        "median_cache_builds": 0.0
+      },
+      "equal_diamond/native_low_threshold/static": {
+        "n": 10,
+        "reachable": 10,
+        "success": 0,
+        "correct": 0,
+        "delivered": 0,
+        "delivered_success": 0,
+        "false_success": 0,
+        "failed_effects": 0,
+        "off_goal_after_change": 0,
+        "memory_changed": 0,
+        "statuses": {
+          "ambiguous": 10
+        },
+        "median_ticks": 100.0,
+        "median_route_ms": 250.18195,
+        "median_total_ms": 358.61695,
+        "median_response_ticks": null,
+        "median_cache_builds": 0.0
+      }
+    },
+    "contrasts": {
+      "branches/native": {
+        "left": "native",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": -0.7,
+        "graph_bootstrap_95": [
+          -0.75,
+          -0.625
+        ]
+      },
+      "branches/native_low_threshold": {
+        "left": "native_low_threshold",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": 0,
+        "graph_bootstrap_95": [
+          0,
+          0
+        ]
+      },
+      "chain/native": {
+        "left": "native",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": -0.675,
+        "graph_bootstrap_95": [
+          -0.725,
+          -0.6
+        ]
+      },
+      "chain/native_low_threshold": {
+        "left": "native_low_threshold",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": 0,
+        "graph_bootstrap_95": [
+          0,
+          0
+        ]
+      },
+      "cycles/native": {
+        "left": "native",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": -0.5,
+        "graph_bootstrap_95": [
+          -0.5,
+          -0.5
+        ]
+      },
+      "cycles/native_low_threshold": {
+        "left": "native_low_threshold",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": 0,
+        "graph_bootstrap_95": [
+          0,
+          0
+        ]
+      },
+      "dense/native": {
+        "left": "native",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": 0,
+        "graph_bootstrap_95": [
+          0,
+          0
+        ]
+      },
+      "dense/native_low_threshold": {
+        "left": "native_low_threshold",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": 0,
+        "graph_bootstrap_95": [
+          0,
+          0
+        ]
+      },
+      "disconnected/native": {
+        "left": "native",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": -0.1,
+        "graph_bootstrap_95": [
+          -0.175,
+          -0.025
+        ]
+      },
+      "disconnected/native_low_threshold": {
+        "left": "native_low_threshold",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": 0,
+        "graph_bootstrap_95": [
+          0,
+          0
+        ]
+      },
+      "equal_diamond/native": {
+        "left": "native",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": -1,
+        "graph_bootstrap_95": [
+          -1,
+          -1
+        ]
+      },
+      "equal_diamond/native_low_threshold": {
+        "left": "native_low_threshold",
+        "right": "dijkstra_cached",
+        "graphs": 10,
+        "mean_correct_difference": -0.5,
+        "graph_bootstrap_95": [
+          -0.5,
+          -0.5
+        ]
+      }
+    }
+  },
+  "by_family": {
+    "chain": {
+      "native": {
+        "correct": 13,
+        "success": 3,
+        "reachable": 30
+      },
+      "native_low_threshold": {
+        "correct": 40,
+        "success": 30,
+        "reachable": 30
+      },
+      "dijkstra_cached": {
+        "correct": 40,
+        "success": 30,
+        "reachable": 30
+      }
+    },
+    "branches": {
+      "native": {
+        "correct": 12,
+        "success": 12,
+        "reachable": 40
+      },
+      "native_low_threshold": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      },
+      "dijkstra_cached": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      }
+    },
+    "equal_diamond": {
+      "native": {
+        "correct": 0,
+        "success": 0,
+        "reachable": 40
+      },
+      "native_low_threshold": {
+        "correct": 20,
+        "success": 20,
+        "reachable": 40
+      },
+      "dijkstra_cached": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      }
+    },
+    "cycles": {
+      "native": {
+        "correct": 20,
+        "success": 20,
+        "reachable": 40
+      },
+      "native_low_threshold": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      },
+      "dijkstra_cached": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      }
+    },
+    "dense": {
+      "native": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      },
+      "native_low_threshold": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      },
+      "dijkstra_cached": {
+        "correct": 40,
+        "success": 40,
+        "reachable": 40
+      }
+    },
+    "disconnected": {
+      "native": {
+        "correct": 36,
+        "success": 6,
+        "reachable": 10
+      },
+      "native_low_threshold": {
+        "correct": 40,
+        "success": 10,
+        "reachable": 10
+      },
+      "dijkstra_cached": {
+        "correct": 40,
+        "success": 10,
+        "reachable": 10
+      }
+    }
+  },
+  "matched_success": {
+    "native": {
+      "n": 81,
+      "native_ticks": 45,
+      "dijkstra_ticks": 26,
+      "native_ms": 214.39,
+      "dijkstra_ms": 59.2401,
+      "native_route_ms": 137.2624,
+      "dijkstra_route_ms": 12.1786,
+      "native_tick_wins": 0,
+      "native_elapsed_wins": 0,
+      "different_delivery": 0
+    },
+    "native_low_threshold": {
+      "n": 180,
+      "native_ticks": 82.0,
+      "dijkstra_ticks": 50.0,
+      "native_ms": 269.8995,
+      "dijkstra_ms": 78.23105,
+      "native_route_ms": 156.04045000000002,
+      "dijkstra_route_ms": 12.82155,
+      "native_tick_wins": 0,
+      "native_elapsed_wins": 0,
+      "different_delivery": 0
+    }
+  },
+  "validation": {
+    "trials": 720,
+    "graphs": 60,
+    "source_hashes_match": true,
+    "paired_memories": true,
+    "receipt_replays": 7644,
+    "goal_changes": 540,
+    "frozen_memory": true
+  },
+  "full_results_path": "tests\\desktop-output\\topology-20261110\\results.json",
+  "full_results_sha256": "5ad6744977379ca97690b401ef158b38eb35e629f3083bbd13dd4bd595783955",
+  "graph_sizes": {
+    "min_vertices": 6,
+    "max_vertices": 13,
+    "min_edges": 8,
+    "max_edges": 20
+  }
+}

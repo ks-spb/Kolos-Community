@@ -1,0 +1,292 @@
+{
+  "groups": {
+    "native_transfer": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 55.0,
+      "median_route_ms": 14.40505,
+      "median_elapsed_ms": 40.608599999999996,
+      "median_actions": 13.0
+    },
+    "native_positive": {
+      "n": 20,
+      "success": 20,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 23.0,
+      "median_route_ms": 2.61975,
+      "median_elapsed_ms": 14.874400000000001,
+      "median_actions": 7.0
+    },
+    "planner_transfer": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 38.0,
+      "median_route_ms": 2.1075,
+      "median_elapsed_ms": 21.55865,
+      "median_actions": 13.0
+    },
+    "planner_positive": {
+      "n": 20,
+      "success": 20,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 22.0,
+      "median_route_ms": 0.6245,
+      "median_elapsed_ms": 10.3245,
+      "median_actions": 7.0
+    },
+    "single_transfer": {
+      "n": 100,
+      "success": 0,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 100.0,
+      "median_route_ms": 34.008250000000004,
+      "median_elapsed_ms": 78.81835000000001,
+      "median_actions": 0.0
+    },
+    "single_positive": {
+      "n": 20,
+      "success": 20,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 22.0,
+      "median_route_ms": 0.618,
+      "median_elapsed_ms": 10.0132,
+      "median_actions": 7.0
+    },
+    "native_lesion": {
+      "n": 20,
+      "success": 0,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 100.0,
+      "median_route_ms": 65.2311,
+      "median_elapsed_ms": 109.2807,
+      "median_actions": 0.0
+    },
+    "native_interference": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 55.0,
+      "median_route_ms": 41.62485,
+      "median_elapsed_ms": 95.6832,
+      "median_actions": 13.0
+    },
+    "planner_lesion": {
+      "n": 20,
+      "success": 0,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 100.0,
+      "median_route_ms": 32.89845,
+      "median_elapsed_ms": 74.71860000000001,
+      "median_actions": 0.0
+    },
+    "planner_interference": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 38.0,
+      "median_route_ms": 5.8514,
+      "median_elapsed_ms": 39.39375,
+      "median_actions": 13.0
+    },
+    "native_adapt_off": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 100,
+      "memory_changed": 0,
+      "median_ticks": 106.0,
+      "median_route_ms": 35.99135,
+      "median_elapsed_ms": 92.83075,
+      "median_actions": 22.0
+    },
+    "native_post_off": {
+      "n": 200,
+      "success": 200,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 200,
+      "memory_changed": 0,
+      "median_ticks": 106.0,
+      "median_route_ms": 40.7381,
+      "median_elapsed_ms": 103.56155000000001,
+      "median_actions": 22.0
+    },
+    "native_adapt_on": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 100,
+      "memory_changed": 100,
+      "median_ticks": 109.0,
+      "median_route_ms": 46.69385,
+      "median_elapsed_ms": 110.4606,
+      "median_actions": 22.0
+    },
+    "native_post_on": {
+      "n": 200,
+      "success": 200,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 200,
+      "memory_changed": 0,
+      "median_ticks": 110.0,
+      "median_route_ms": 50.2459,
+      "median_elapsed_ms": 116.4456,
+      "median_actions": 22.0
+    },
+    "planner_post_from_native": {
+      "n": 200,
+      "success": 200,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 46.0,
+      "median_route_ms": 3.4571,
+      "median_elapsed_ms": 28.97185,
+      "median_actions": 16.0
+    },
+    "planner_adapt_off": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 100,
+      "memory_changed": 0,
+      "median_ticks": 62.0,
+      "median_route_ms": 4.1968499999999995,
+      "median_elapsed_ms": 35.582350000000005,
+      "median_actions": 22.0
+    },
+    "planner_post_off": {
+      "n": 200,
+      "success": 200,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 200,
+      "memory_changed": 0,
+      "median_ticks": 62.0,
+      "median_route_ms": 4.546749999999999,
+      "median_elapsed_ms": 38.721149999999994,
+      "median_actions": 22.0
+    },
+    "planner_adapt_on": {
+      "n": 100,
+      "success": 100,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 80,
+      "memory_changed": 100,
+      "median_ticks": 62.0,
+      "median_route_ms": 4.75835,
+      "median_elapsed_ms": 38.842600000000004,
+      "median_actions": 22.0
+    },
+    "planner_post_on": {
+      "n": 200,
+      "success": 200,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 0,
+      "memory_changed": 0,
+      "median_ticks": 46.0,
+      "median_route_ms": 3.37615,
+      "median_elapsed_ms": 27.86065,
+      "median_actions": 16.0
+    },
+    "native_post_from_planner": {
+      "n": 200,
+      "success": 200,
+      "false_success": 0,
+      "bad_keys": 0,
+      "wrong_fast": 200,
+      "memory_changed": 0,
+      "median_ticks": 109.0,
+      "median_route_ms": 48.768550000000005,
+      "median_elapsed_ms": 112.7338,
+      "median_actions": 22.0
+    }
+  },
+  "contrasts": {
+    "native_plasticity": {
+      "metric": "wrong_fast",
+      "mean_left_minus_right": 0,
+      "world_bootstrap_95": [
+        0,
+        0
+      ],
+      "worlds": 20
+    },
+    "planner_plasticity": {
+      "metric": "wrong_fast",
+      "mean_left_minus_right": -1,
+      "world_bootstrap_95": [
+        -1,
+        -1
+      ],
+      "worlds": 20
+    },
+    "planner_vs_native_success": {
+      "metric": "success",
+      "mean_left_minus_right": 0,
+      "world_bootstrap_95": [
+        0,
+        0
+      ],
+      "worlds": 20
+    },
+    "planner_vs_native_ticks": {
+      "metric": "ticks",
+      "mean_left_minus_right": -13.600000000000001,
+      "world_bootstrap_95": [
+        -13.600000000000001,
+        -13.600000000000001
+      ],
+      "worlds": 20
+    }
+  },
+  "restarts": {
+    "total": 120,
+    "different_pid": true,
+    "transient_clean": true,
+    "graph_equal": true
+  },
+  "retention": {
+    "passed": 960,
+    "total": 960
+  }
+}

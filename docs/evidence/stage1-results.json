@@ -1,0 +1,192 @@
+{
+  "stage": 1,
+  "experiment": "E13",
+  "status": "PASS",
+  "recordedAtUTC": "2026-10-04T14:32:34.870228+00:00",
+  "baseline": "e3955a980982af6f630f23d0d83a86f6e4cb965f",
+  "branch": "feature/browser-graph-lab",
+  "environment": {
+    "python": "3.11.0",
+    "os": "Windows",
+    "node": "v24.19.0",
+    "playwright": "1.63.0"
+  },
+  "tests": {
+    "desktop": {
+      "command": "python -m unittest discover -s tests/desktop -v",
+      "enabledFlags": [
+        "KOLOS_WINDOWS_SMOKE",
+        "KOLOS_INLINE_GUI_SMOKE",
+        "KOLOS_STUDIO_GUI_SMOKE",
+        "KOLOS_EPISODE_WINDOWS_SMOKE"
+      ],
+      "passed": 151,
+      "failed": 0,
+      "skipped": 0,
+      "logSHA256": "28b75baff146c896210520806b5bcb1c35a0a7850376e5ca2e1f6da30be76363"
+    },
+    "legacy": {
+      "command": "python -m pytest tests --ignore=tests/desktop -q",
+      "passed": 117,
+      "failed": 0,
+      "subtestsPassed": 32,
+      "deprecationWarnings": 7,
+      "logSHA256": "0b5ad570a7951064c426003bc2311f7c7d5cd975d0a35dafa0d035ad05a2fdbd"
+    },
+    "javascript": {
+      "command": "npm test",
+      "passed": 224,
+      "failed": 0,
+      "skipped": 0,
+      "logSHA256": "06b5f619f579fc92cf57dd2a1a13647bfbe0ccd8cff9a2789a85cf1b72765944"
+    },
+    "acceptance": {
+      "command": "npm run test:acceptance",
+      "passed": 120,
+      "failed": 0,
+      "skipped": 0,
+      "note": "Overlaps with npm test; not an additional unique test count.",
+      "logSHA256": "07e5dc2575d0f54a63ef1b44710e8a30aa61088bf232c292c369676bfaaf2024"
+    },
+    "browserSuites": [
+      {
+        "suite": "browser_smoke",
+        "exitCode": 0,
+        "seconds": 43.78,
+        "log": "browser_smoke.log",
+        "logSHA256": "d161a4d3864804048d77c92c705ad5bb375f0c3de126ddb257ef3edab854c896"
+      },
+      {
+        "suite": "signal_browser",
+        "exitCode": 0,
+        "log": "signal_browser-final.log",
+        "retestedAfterExplicitUTF8Fix": true,
+        "details": {
+          "result": "PASS",
+          "page_errors": [],
+          "external_requests": 0,
+          "indexeddb_reload_verified": true,
+          "scenarios": [
+            "legacy frozen across switch",
+            "associative recall 1700",
+            "associative recall траты 1700",
+            "recognition",
+            "pause",
+            "one tick",
+            "1700",
+            "history",
+            "reload",
+            "moved CALC",
+            "hidden CALC",
+            "retry",
+            "own demo 2300",
+            "import",
+            "weight",
+            "mobile"
+          ]
+        },
+        "logSHA256": "2240c58146fa2bd55811e586412df1a93df9f755856ca06dadba322e98d0cfd0"
+      },
+      {
+        "suite": "disinhibition_browser",
+        "exitCode": 0,
+        "log": "disinhibition_browser-final.log",
+        "retestedAfterExplicitUTF8Fix": true,
+        "details": {
+          "result": "PASS",
+          "page_errors": [],
+          "external_requests": 0,
+          "indexeddb_reload": true,
+          "mode": "http",
+          "scenarios": [
+            "full 1354",
+            "two shown examples",
+            "pause",
+            "one tick",
+            "manual ack",
+            "duplicate ack",
+            "all 3 modes",
+            "1001",
+            "54321",
+            "moved object",
+            "hidden object",
+            "own new context and target",
+            "history",
+            "JSON",
+            "reload",
+            "mobile"
+          ]
+        },
+        "logSHA256": "47fa17696229a944407d87903fc16fe3d3512d8f356550d9d0d950d42bed80e7"
+      },
+      {
+        "suite": "states_browser",
+        "exitCode": 0,
+        "seconds": 36.09,
+        "log": "states_browser.log",
+        "logSHA256": "54f507b4dd2f47b505de86945e87071d29477c40563192f98dbdd7cc11bb0a72"
+      },
+      {
+        "suite": "goals_browser",
+        "exitCode": 0,
+        "seconds": 57.94,
+        "log": "goals_browser.log",
+        "logSHA256": "cdb8de3f4b7c2300529c8d5f8511aef9cd07933f116cb88c5c77cd1a2154aff7"
+      },
+      {
+        "suite": "imagery_browser",
+        "exitCode": 0,
+        "seconds": 15.58,
+        "log": "imagery_browser.log",
+        "logSHA256": "8d519f6e68ce2721866e9ef09c27009e6975c03783373b920fe1f8b02216b1b1"
+      },
+      {
+        "suite": "language_browser",
+        "exitCode": 0,
+        "seconds": 50.78,
+        "log": "language_browser.log",
+        "logSHA256": "9eb2fb0b7b6fd5aab47cb61a7ae9c81d22f474a97cca33f5694b154709582b3e"
+      },
+      {
+        "suite": "neurons_browser",
+        "exitCode": 0,
+        "seconds": 18.05,
+        "log": "neurons_browser.log",
+        "logSHA256": "9c6bd590214806eacc0b4c42675c3e817cc000e6f2c7025d6a7447a1a3a614d1"
+      },
+      {
+        "suite": "shared_browser",
+        "exitCode": 0,
+        "seconds": 39.97,
+        "log": "shared_browser.log",
+        "logSHA256": "60c92ba7031ccb2fb37acdd99518313cfa2e8d29791607ac31be0bce7f3971b0"
+      }
+    ],
+    "typescriptCheck": "PASS",
+    "compileall": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "evidence": [
+    "stage1-model.json",
+    "stage1-windows.json",
+    "stage1-browser.json"
+  ],
+  "scope": {
+    "realWindowsForm": true,
+    "unknownEnvironmentValues": true,
+    "newLayout": true,
+    "newRuntimeIds": true,
+    "multipleReadWriteBlocks": true,
+    "persistenceReload": true,
+    "sameMemoryRegression1to12": true,
+    "exactTaughtPhraseRequired": true,
+    "stableAccessibleDescriptorsRequired": true,
+    "genericUIAPrimitivesEngineered": true,
+    "taskRouteDemonstratedNotHardcoded": true,
+    "arbitraryApplicationsNotValidated": true,
+    "secondPC_E14": "NOT RUN; remains planned",
+    "externalTeacherAPI_stage2": "NOT IMPLEMENTED",
+    "AGIClaim": false
+  },
+  "ci": "Local results. GitHub Actions after push is a separate run."
+}

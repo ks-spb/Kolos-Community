@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "mode": "http",
+  "oneEngine": true,
+  "twelvePassed": true,
+  "wholeMemoryVisible": true,
+  "historyHasNoEffects": true,
+  "transfer": "4512",
+  "storageReload": true,
+  "mobile": true,
+  "glazStaticServer": true,
+  "pageErrors": [],
+  "externalRequests": []
+}

@@ -1,0 +1,12 @@
+{
+  "function": "positive_stock_totals",
+  "parameter": "rows",
+  "examples": [
+    {"input": [{"sku": "A", "qty": 8}, {"sku": "B", "qty": 7}, {"sku": "C", "qty": 2}, {"sku": "A", "qty": -10}, {"sku": "B", "qty": -2}, {"sku": "C", "qty": -2}, {"sku": "D", "qty": 1}], "expected": {"B": 5, "D": 1}},
+    {"input": [{"sku": "M", "qty": 6}, {"sku": "N", "qty": 6}, {"sku": "P", "qty": 6}, {"sku": "M", "qty": -7}, {"sku": "N", "qty": -6}, {"sku": "P", "qty": -5}], "expected": {"P": 1}}
+  ],
+  "checks": [
+    {"input": [{"sku": "R", "qty": 100}, {"sku": "S", "qty": 4}, {"sku": "T", "qty": -3}, {"sku": "R", "qty": -100}, {"sku": "S", "qty": -2}], "expected": {"S": 2}},
+    {"input": [], "expected": {}}
+  ]
+}

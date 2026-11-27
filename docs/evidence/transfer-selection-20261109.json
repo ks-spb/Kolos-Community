@@ -1,0 +1,891 @@
+{
+  "protocol": {
+    "version": 3,
+    "seeds": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019
+    ],
+    "development_seed": 0,
+    "topology_families": 1,
+    "teaching": "7 independent transition demonstrations + alphabet exposure",
+    "transfer_trials_per_world": 5,
+    "adaptation_trials": 5,
+    "post_restart_trials": 10,
+    "cross_evaluation": "Each learned snapshot also evaluated by the other selector after a fresh process restart",
+    "transfer_target": 0.9,
+    "false_success_target": 0,
+    "error_reduction_target": 0.5,
+    "controller": "native goal runtime; only route_wave replaced for graph-search baseline",
+    "native_selection": "Certify lower winner score > all rival upper scores + 1e-8; same monotone backward operator from 0 and 1; no fixed route margin",
+    "selection_ablation": "Replay pre-fix first-threshold + .04 margin on each native-trained snapshot in a new process, with learning off",
+    "planner": "Dijkstra: maximize discounted product of learned weights; same sensory/motor guards and plasticity; no activation/margin threshold; exclude failed transitions for current attempt",
+    "reset_policy": "Each transfer starts from original memory; adaptation retains graph only; post trials reload a fixed snapshot",
+    "interpretation": "Single-fragment is a weak ablation, not a proxy for Hermes/Grok. No weights tuned on held-out seeds."
+  },
+  "started_utc": "2026-11-09T15:09:54.504313+00:00",
+  "finished_utc": "2026-11-09T15:15:24.233933+00:00",
+  "python": "3.14.7",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "sources": {
+    "kolos_states/backward.py": "3d2c400f5cde94b43a91f8d9c0174d113e07559f7f7d7225ad2547f0a8bae947",
+    "kolos_states/core.py": "9d162e6521d32a3bb8db097e7a6d4257846310bb6caa289d6e195c4bbf151dc4",
+    "kolos_states/dynamics.py": "d2fd793bd0b49d85c815e35366929ae661c90fb5aa8418a8d7f9034b84da3180",
+    "kolos_states/experience.py": "9f32e2c300f26d9911cdea31be2e315f062ac2218ff1e325269bac0913cc7019",
+    "kolos_states/goal_network.py": "dd43106b50e467ef44a11a086a1b8bb7ee11d77892d2d190f4ba9f57463d2892",
+    "kolos_states/memory.py": "2c2128c2778df5ac91b77584f3733b99a9af0bf084fc635ca8886b90593481bf",
+    "kolos_states/protocol.py": "6c93d469f25b4bacf954eecef70e77fb3a4334bb5ae7b8771d4fd3f10b27c343",
+    "kolos_states/route_selection.py": "19201b26735068c2d5eee6fc13a98f0f642e714d6b58ddc7e0b6fa13341097dd",
+    "kolos_states/simulator.py": "1223d9f18c9c9920041af42117d687fc55777cf77c3e6a67e85fa932c7cb982a",
+    "kolos_states/storage.py": "29f582bf376dcc162b95ec9d55644037c8e7b72d2e85ed7ffa977f9cfc26c59a",
+    "kolos_states/transfer/__init__.py": "231f4c0020fb86d8f3d58720424b8f751c05e2a9469f082cc89750ede94b6f22",
+    "kolos_states/transfer/__main__.py": "8bf738aa31142cd6359cdc5f6366f161380d2183a91ccb63f0690297e6539e6a",
+    "kolos_states/transfer/planner.py": "5b66561cd947c6d8bad899fdb33da3daa4281d59e91372965cd9f166b1f67e21",
+    "kolos_states/transfer/report.py": "6df7fda1f8647bf24d2182896219f2fc249d116ad22dd80fb06a3dc0193d7f65",
+    "kolos_states/transfer/restart.py": "26646fd5fd6d1c84f7e9a4f45771f57ce7b2f713b20c1bd171f41c99a329c7ab",
+    "kolos_states/transfer/runner.py": "5f547618f67cde281d70a4049e331c9c344850dd30c008470f7be37aefbbd906",
+    "kolos_states/transfer/selection_controls.py": "f39b4170617719501c63371cab2a0e64bd4a562162c7a1605aed838e90a48d21",
+    "kolos_states/transfer/suite.py": "361490c5d24fe33f588b8f252e32552d31bc458b948a3172eb34fdab8f2c0525",
+    "kolos_states/transfer/world.py": "6859113db948e2a9f721cd3c09bbf27373cfdf238ea0863b761066c8a33a1e3c"
+  },
+  "full_results_path": "tests\\desktop-output\\transfer-selection-v2\\results.json",
+  "full_results_sha256": "47f2cd35f3f819388f545a85b9b59bc4b56208043ca70fe638209e2c989b60bb",
+  "summary": {
+    "groups": {
+      "native_transfer": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 58.0,
+        "median_route_ms": 26.83115,
+        "median_elapsed_ms": 52.94605,
+        "median_actions": 13.0
+      },
+      "native_positive": {
+        "n": 20,
+        "success": 20,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 23.0,
+        "median_route_ms": 2.9607,
+        "median_elapsed_ms": 12.257349999999999,
+        "median_actions": 7.0
+      },
+      "planner_transfer": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 38.0,
+        "median_route_ms": 1.8442500000000002,
+        "median_elapsed_ms": 18.8012,
+        "median_actions": 13.0
+      },
+      "planner_positive": {
+        "n": 20,
+        "success": 20,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 22.0,
+        "median_route_ms": 0.6025,
+        "median_elapsed_ms": 9.382750000000001,
+        "median_actions": 7.0
+      },
+      "single_transfer": {
+        "n": 100,
+        "success": 0,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 100.0,
+        "median_route_ms": 30.4347,
+        "median_elapsed_ms": 68.0291,
+        "median_actions": 0.0
+      },
+      "single_positive": {
+        "n": 20,
+        "success": 20,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 22.0,
+        "median_route_ms": 0.6038,
+        "median_elapsed_ms": 9.45495,
+        "median_actions": 7.0
+      },
+      "native_lesion": {
+        "n": 20,
+        "success": 0,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 100.0,
+        "median_route_ms": 100.59515,
+        "median_elapsed_ms": 138.96415000000002,
+        "median_actions": 0.0
+      },
+      "native_interference": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 58.0,
+        "median_route_ms": 79.7596,
+        "median_elapsed_ms": 131.0801,
+        "median_actions": 13.0
+      },
+      "planner_lesion": {
+        "n": 20,
+        "success": 0,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 100.0,
+        "median_route_ms": 28.1635,
+        "median_elapsed_ms": 64.371,
+        "median_actions": 0.0
+      },
+      "planner_interference": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 38.0,
+        "median_route_ms": 5.2622,
+        "median_elapsed_ms": 34.9063,
+        "median_actions": 13.0
+      },
+      "native_adapt_off": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 100,
+        "memory_changed": 0,
+        "median_ticks": 109.0,
+        "median_route_ms": 61.60335,
+        "median_elapsed_ms": 112.68965,
+        "median_actions": 22.0
+      },
+      "native_post_off": {
+        "n": 200,
+        "success": 200,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 200,
+        "memory_changed": 0,
+        "median_ticks": 109.0,
+        "median_route_ms": 70.19155,
+        "median_elapsed_ms": 126.20575,
+        "median_actions": 22.0
+      },
+      "native_adapt_on": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 80,
+        "memory_changed": 100,
+        "median_ticks": 113.0,
+        "median_route_ms": 75.4551,
+        "median_elapsed_ms": 132.906,
+        "median_actions": 22.0
+      },
+      "native_post_on": {
+        "n": 200,
+        "success": 200,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 81.0,
+        "median_route_ms": 57.88295,
+        "median_elapsed_ms": 99.94575,
+        "median_actions": 16.0
+      },
+      "planner_post_from_native": {
+        "n": 200,
+        "success": 200,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 46.0,
+        "median_route_ms": 3.2157,
+        "median_elapsed_ms": 25.8119,
+        "median_actions": 16.0
+      },
+      "early_post_from_native": {
+        "n": 200,
+        "success": 200,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 200,
+        "memory_changed": 0,
+        "median_ticks": 109.0,
+        "median_route_ms": 43.6002,
+        "median_elapsed_ms": 101.03525,
+        "median_actions": 22.0
+      },
+      "planner_adapt_off": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 100,
+        "memory_changed": 0,
+        "median_ticks": 62.0,
+        "median_route_ms": 3.7180999999999997,
+        "median_elapsed_ms": 32.43615,
+        "median_actions": 22.0
+      },
+      "planner_post_off": {
+        "n": 200,
+        "success": 200,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 200,
+        "memory_changed": 0,
+        "median_ticks": 62.0,
+        "median_route_ms": 4.2409,
+        "median_elapsed_ms": 35.319599999999994,
+        "median_actions": 22.0
+      },
+      "planner_adapt_on": {
+        "n": 100,
+        "success": 100,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 80,
+        "memory_changed": 100,
+        "median_ticks": 62.0,
+        "median_route_ms": 4.27005,
+        "median_elapsed_ms": 35.6806,
+        "median_actions": 22.0
+      },
+      "planner_post_on": {
+        "n": 200,
+        "success": 200,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 46.0,
+        "median_route_ms": 3.1977,
+        "median_elapsed_ms": 25.8789,
+        "median_actions": 16.0
+      },
+      "native_post_from_planner": {
+        "n": 200,
+        "success": 200,
+        "false_success": 0,
+        "bad_keys": 0,
+        "wrong_fast": 0,
+        "memory_changed": 0,
+        "median_ticks": 81.0,
+        "median_route_ms": 57.902550000000005,
+        "median_elapsed_ms": 100.05455,
+        "median_actions": 16.0
+      }
+    },
+    "contrasts": {
+      "native_plasticity": {
+        "metric": "wrong_fast",
+        "mean_left_minus_right": -1,
+        "world_bootstrap_95": [
+          -1,
+          -1
+        ],
+        "worlds": 20
+      },
+      "planner_plasticity": {
+        "metric": "wrong_fast",
+        "mean_left_minus_right": -1,
+        "world_bootstrap_95": [
+          -1,
+          -1
+        ],
+        "worlds": 20
+      },
+      "planner_vs_native_success": {
+        "metric": "success",
+        "mean_left_minus_right": 0,
+        "world_bootstrap_95": [
+          0,
+          0
+        ],
+        "worlds": 20
+      },
+      "planner_vs_native_ticks": {
+        "metric": "ticks",
+        "mean_left_minus_right": -16.6,
+        "world_bootstrap_95": [
+          -16.6,
+          -16.6
+        ],
+        "worlds": 20
+      },
+      "early_vs_native_same_memory_errors": {
+        "metric": "wrong_fast",
+        "mean_left_minus_right": 1,
+        "world_bootstrap_95": [
+          1,
+          1
+        ],
+        "worlds": 20
+      }
+    },
+    "restarts": {
+      "total": 140,
+      "different_pid": true,
+      "transient_clean": true,
+      "graph_equal": true
+    },
+    "retention": {
+      "passed": 1120,
+      "total": 1120
+    }
+  },
+  "errors_by_adaptation_attempt": {
+    "native_adapt_off": [
+      20,
+      20,
+      20,
+      20,
+      20
+    ],
+    "native_adapt_on": [
+      20,
+      20,
+      20,
+      20,
+      0
+    ],
+    "planner_adapt_off": [
+      20,
+      20,
+      20,
+      20,
+      20
+    ],
+    "planner_adapt_on": [
+      20,
+      20,
+      20,
+      20,
+      0
+    ]
+  },
+  "initial_retention": {
+    "passed": 160,
+    "total": 160
+  },
+  "validation": {
+    "trials": 2400,
+    "restarts": 140,
+    "worlds": 20,
+    "source_hashes_match": true,
+    "alphabet_checks": [
+      {
+        "snapshot": "2000-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2000-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2000-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2000-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2001-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2001-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2001-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2001-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2002-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2002-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2002-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2002-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2003-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2003-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2003-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2003-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2004-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2004-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2004-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2004-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2005-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2005-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2005-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2005-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2006-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2006-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2006-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2006-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2007-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2007-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2007-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2007-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2008-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2008-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2008-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2008-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2009-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2009-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2009-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2009-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2010-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2010-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2010-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2010-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2011-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2011-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2011-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2011-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2012-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2012-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2012-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2012-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2013-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2013-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2013-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2013-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2014-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2014-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2014-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2014-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2015-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2015-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2015-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2015-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2016-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2016-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2016-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2016-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2017-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2017-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2017-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2017-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2018-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2018-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2018-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2018-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2019-native-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2019-native-on",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2019-planner-off",
+        "success": true,
+        "graph_unchanged": true
+      },
+      {
+        "snapshot": "2019-planner-on",
+        "success": true,
+        "graph_unchanged": true
+      }
+    ]
+  },
+  "diagnostic": {
+    "seed": 2000,
+    "memory_hash": "c7c65c709c0372cc2a9566ec8b5e9a4618db481585386e103db872573c4e34a7",
+    "at_selection": [
+      {
+        "transition": "n82",
+        "route": "detour",
+        "score": 0.669944351,
+        "sensory": 0.999998093,
+        "history": 0.41994482774999997,
+        "inhibition": 0,
+        "upper": 0.677417905
+      },
+      {
+        "transition": "n127",
+        "route": "fast",
+        "score": 0.668379858,
+        "sensory": 0.999998093,
+        "history": 0.4183803345,
+        "inhibition": 0,
+        "upper": 0.668686586
+      },
+      {
+        "transition": "n187",
+        "route": "fast",
+        "score": 0.496531229,
+        "sensory": 0.999998093,
+        "history": 0.24653170575,
+        "inhibition": 0,
+        "upper": 0.5609982
+      }
+    ],
+    "after_100_waves": [
+      {
+        "transition": "n82",
+        "route": "detour",
+        "score": 0.676530802,
+        "sensory": 0.999998093,
+        "history": 0.42653127825000003,
+        "inhibition": 0,
+        "upper": null
+      },
+      {
+        "transition": "n127",
+        "route": "fast",
+        "score": 0.668654548,
+        "sensory": 0.999998093,
+        "history": 0.41865502499999996,
+        "inhibition": 0,
+        "upper": null
+      },
+      {
+        "transition": "n187",
+        "route": "fast",
+        "score": 0.535077051,
+        "sensory": 0.999998093,
+        "history": 0.2850775275,
+        "inhibition": 0,
+        "upper": null
+      }
+    ],
+    "native_wrong_fast": 0,
+    "planner_wrong_fast": 0,
+    "native_success": true,
+    "planner_success": true
+  }
+}

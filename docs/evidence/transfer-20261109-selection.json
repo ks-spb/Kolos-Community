@@ -1,0 +1,60 @@
+{
+  "seed": 1000,
+  "memory_hash": "625894b8c42d755b62c824c391a5e31f123298f59914a0c27ff8b21104c8a479",
+  "at_selection": [
+    {
+      "transition": "n97",
+      "route": "detour",
+      "score": 0.345659431,
+      "sensory": 0.99609375,
+      "history": 0.09663599325,
+      "inhibition": 0
+    },
+    {
+      "transition": "n145",
+      "route": "fast",
+      "score": 0.558255777,
+      "sensory": 0.99609375,
+      "history": 0.3092323395,
+      "inhibition": 0
+    },
+    {
+      "transition": "n187",
+      "route": "fast",
+      "score": 0.251119631,
+      "sensory": 0.99609375,
+      "history": 0.0020961929999999997,
+      "inhibition": 0
+    }
+  ],
+  "after_100_waves": [
+    {
+      "transition": "n97",
+      "route": "detour",
+      "score": 0.675554716,
+      "sensory": 0.99609375,
+      "history": 0.42653127825000003,
+      "inhibition": 0
+    },
+    {
+      "transition": "n145",
+      "route": "fast",
+      "score": 0.648838987,
+      "sensory": 0.99609375,
+      "history": 0.39981554925,
+      "inhibition": 0
+    },
+    {
+      "transition": "n187",
+      "route": "fast",
+      "score": 0.535264834,
+      "sensory": 0.99609375,
+      "history": 0.28624139699999995,
+      "inhibition": 0
+    }
+  ],
+  "native_wrong_fast": 1,
+  "planner_wrong_fast": 0,
+  "native_success": true,
+  "planner_success": true
+}

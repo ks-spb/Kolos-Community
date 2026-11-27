@@ -1,0 +1,111 @@
+{
+  "validated": true,
+  "captured_utc": "2026-11-12T14:55:28.516211+00:00",
+  "native_requests": {
+    "migration_probe": 5,
+    "supervisor_instruction": 4
+  },
+  "routing_counts": {
+    "none": 7,
+    "review": 1,
+    "existing_server_route": 3,
+    "hermes_executor": 4
+  },
+  "heldout": 8,
+  "source_kinds": {
+    "historical_verified_transition": 5,
+    "unexecuted_proposal_simulation": 3
+  },
+  "rehearsal": {
+    "kolos": {
+      "trials": 72,
+      "clean_completed": 8,
+      "outcomes": {
+        "complete": 8,
+        "blocked": 56,
+        "pending": 8
+      },
+      "false_success": 0,
+      "repeated_save": 0
+    },
+    "script": {
+      "trials": 72,
+      "clean_completed": 8,
+      "outcomes": {
+        "complete": 8,
+        "blocked": 56,
+        "pending": 8
+      },
+      "false_success": 0,
+      "repeated_save": 0
+    }
+  },
+  "memory_off_blocked": 8,
+  "restart_complete": 8,
+  "goal_policy_sha256": "83c45025e02d26c4ef9e2b9f1469cdcbe605a43c7527d3f53a382a8e73872d70",
+  "source_sha256": {
+    "kolos_states\\hermes_shadow\\audit.py": "599036db20b3484341b971d8025e6910279197ca2b30d028c11ca2e61f6ee5fe",
+    "kolos_states\\hermes_shadow\\replay.py": "7038301b25b5308a3f25a42464c83c4fb9c43fcfa61b9cfdadec23db3d88ff3f",
+    "kolos_states\\hermes_shadow\\routing.py": "4b6977257fb569ce63aa64eb56bb0b08bde5e246923caf388fe192a294f4fa25",
+    "kolos_states\\hermes_shadow\\__init__.py": "2bf7ffb6a57593b5b889c64cc2e762f8177d9fe70fc8793649ec00843cd38c39",
+    "kolos_states\\hermes_shadow\\__main__.py": "1721a9b59a4ce598b9f3d9bda21781df1542e7b802f340b97c665490d25f8c2f",
+    "kolos_states\\core.py": "9d162e6521d32a3bb8db097e7a6d4257846310bb6caa289d6e195c4bbf151dc4",
+    "kolos_states\\episodes.py": "e57cda6640a3c205d9528963b915c0927a6d9030cc2de7de08440cbd513b0d62",
+    "kolos_states\\episode_browser.py": "d9a97a59100fef368e14b90039d4cc8b761e97541275c48515fd37c83ff506a9",
+    "kolos_states\\cluster_replay\\controllers.py": "591d2889ac01964b7f1ecffd4e6eaef85825f26fb81970fa3d6a44469beb8f93",
+    "kolos_states\\cluster_replay\\corpus.py": "7bd2b7cf86d276d3cb8ccfb8ac7d009571668be3a4398196f5e3da600ed64efe",
+    "kolos_states\\cluster_replay\\hermes_worker.py": "befd066f67729f80debb5c45c7d33280d2fcc389549a0e4c6496cb74a5b6fd33",
+    "kolos_states\\cluster_replay\\isolation.py": "27dba2a14c48a8b39550ed76f9e3a63441c34f2cf49134858915f66cc21b8524",
+    "kolos_states\\cluster_replay\\model.py": "73d5dbcf4d0e86c974c0825b3988e40ed2f2fd48b6a63973d316af93dbb78eca",
+    "kolos_states\\cluster_replay\\report.py": "81b0b3010da19dad427e5df5d729bdd5003b73bcfc1c0ed014db0727321520a7",
+    "kolos_states\\cluster_replay\\suite.py": "c373794373e0a4c761cddbd3ecaf44bdc60c97cbb9a7938a88057bc1e6fe28fc",
+    "kolos_states\\cluster_replay\\world.py": "853d504a4515abc788375a48ff800f5e9fe0f1cf8518b8826736bfb322457a40",
+    "kolos_states\\cluster_replay\\__init__.py": "9330db07034bab3e3319ce6aa48ea4a3a606a48abd4104893355b9ee55a7a05e",
+    "kolos_states\\cluster_replay\\__main__.py": "5ff6f5f857406657ca7c35d075c4dc59ec1fb2f8d8e2514e55c534fc0c91923a"
+  },
+  "mode": "shadow_only",
+  "production_enabled": false,
+  "new_live_ad_tests": 0,
+  "model_calls": 0,
+  "external_messages_sent": 0,
+  "proposal_counts": [
+    {
+      "command": "advertising.cluster.set_excluded",
+      "status": "failed",
+      "count": 1
+    },
+    {
+      "command": "advertising.cluster.set_excluded",
+      "status": "proposed",
+      "count": 3
+    },
+    {
+      "command": "advertising.cluster.set_excluded",
+      "status": "verified",
+      "count": 6
+    },
+    {
+      "command": "advertising.pause",
+      "status": "verified",
+      "count": 1
+    },
+    {
+      "command": "prices.manual_profit",
+      "status": "pending_verification",
+      "count": 1
+    },
+    {
+      "command": "prices.manual_profit",
+      "status": "verified",
+      "count": 2
+    },
+    {
+      "command": "xway.position_hold.set",
+      "status": "proposed",
+      "count": 1
+    }
+  ],
+  "active_attempt": null,
+  "pause_verification_scope": "xway",
+  "unit_regression_tests_passed": 34
+}

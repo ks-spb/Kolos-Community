@@ -1,0 +1,234 @@
+{
+  "validated": true,
+  "date": "2026-11-11",
+  "runs": {
+    "trained": {
+      "condition": "trained",
+      "passed": true,
+      "pid": 30104,
+      "kernel_dispatches": 9,
+      "confirmations": 9,
+      "browser_writes": [
+        "fill-search",
+        "apply-search"
+      ],
+      "report": {
+        "sku": "DEMO-A",
+        "wb_id": "100000001",
+        "budget": "30 ₽"
+      },
+      "memory_sha256": "e5be95a23166a288b56d3d6904d7eb3246be9fbe765151f14013fd7d4b1266dd",
+      "frames": 22,
+      "autonomous_seconds": 14.421,
+      "source_sha256": {
+        "tests/desktop/xway_executor.mjs": "63fc23d48f3ae86a3971a5f91720d01546d8965131493c0408ea344b8e54d612",
+        "kolos_states/xway_readonly/worker.py": "9a0435a5b846d10a61636b199f7adb7b0c56cf9c383b4dc0d2d23d97c9f8d446",
+        "kolos_states/xway_readonly/protocol.py": "8dcacf81e835f545409dd12cf4d9e8e852f889f65f4ba506588c57454ef6c416",
+        "kolos_states/episode_browser.py": "d9a97a59100fef368e14b90039d4cc8b761e97541275c48515fd37c83ff506a9",
+        "kolos_states/episodes.py": "e57cda6640a3c205d9528963b915c0927a6d9030cc2de7de08440cbd513b0d62",
+        "kolos_states/core.py": "9d162e6521d32a3bb8db097e7a6d4257846310bb6caa289d6e195c4bbf151dc4"
+      },
+      "evidence_directory": "xway-readonly-trained-20261111C",
+      "journal_sha256": "e99bb179d5dda4b0e9462bd69092a5ddb29fdd94a0440975f4ced8911b091e84"
+    },
+    "cut": {
+      "condition": "cut",
+      "passed": false,
+      "pid": 37240,
+      "kernel_dispatches": 1,
+      "confirmations": 1,
+      "browser_writes": [],
+      "report": {
+        "sku": "",
+        "wb_id": "",
+        "budget": ""
+      },
+      "memory_sha256": "16af4c758fbb88899d73cb4d06a24e74f8b5971ccdd3827ab8a19b143a20a743",
+      "frames": 10,
+      "autonomous_seconds": 1.335,
+      "source_sha256": {
+        "tests/desktop/xway_executor.mjs": "63fc23d48f3ae86a3971a5f91720d01546d8965131493c0408ea344b8e54d612",
+        "kolos_states/xway_readonly/worker.py": "9a0435a5b846d10a61636b199f7adb7b0c56cf9c383b4dc0d2d23d97c9f8d446",
+        "kolos_states/xway_readonly/protocol.py": "8dcacf81e835f545409dd12cf4d9e8e852f889f65f4ba506588c57454ef6c416",
+        "kolos_states/episode_browser.py": "d9a97a59100fef368e14b90039d4cc8b761e97541275c48515fd37c83ff506a9",
+        "kolos_states/episodes.py": "e57cda6640a3c205d9528963b915c0927a6d9030cc2de7de08440cbd513b0d62",
+        "kolos_states/core.py": "9d162e6521d32a3bb8db097e7a6d4257846310bb6caa289d6e195c4bbf151dc4"
+      },
+      "evidence_directory": "xway-readonly-cut-20261111B",
+      "journal_sha256": "5f0740fd45a0363e7767d9d2060185cc7ff18ecc5ba202aefc667a325b615f9e"
+    },
+    "empty": {
+      "condition": "empty",
+      "passed": false,
+      "pid": 33252,
+      "kernel_dispatches": 0,
+      "confirmations": 0,
+      "browser_writes": [],
+      "report": {
+        "sku": "",
+        "wb_id": "",
+        "budget": ""
+      },
+      "memory_sha256": "7d2ddfe3cbbb55f84f9f34dbc7e99a8a3f1314e62fe5677821f5073aa847ae0e",
+      "frames": 10,
+      "autonomous_seconds": 0.298,
+      "source_sha256": {
+        "tests/desktop/xway_executor.mjs": "63fc23d48f3ae86a3971a5f91720d01546d8965131493c0408ea344b8e54d612",
+        "kolos_states/xway_readonly/worker.py": "9a0435a5b846d10a61636b199f7adb7b0c56cf9c383b4dc0d2d23d97c9f8d446",
+        "kolos_states/xway_readonly/protocol.py": "8dcacf81e835f545409dd12cf4d9e8e852f889f65f4ba506588c57454ef6c416",
+        "kolos_states/episode_browser.py": "d9a97a59100fef368e14b90039d4cc8b761e97541275c48515fd37c83ff506a9",
+        "kolos_states/episodes.py": "e57cda6640a3c205d9528963b915c0927a6d9030cc2de7de08440cbd513b0d62",
+        "kolos_states/core.py": "9d162e6521d32a3bb8db097e7a6d4257846310bb6caa289d6e195c4bbf151dc4"
+      },
+      "evidence_directory": "xway-readonly-empty-20261111B",
+      "journal_sha256": "0e6c44b36989ad9154e7b92be8535fac389f35ff9ac7d9e0eb21a01643ae8765"
+    },
+    "restored": {
+      "condition": "restored",
+      "passed": true,
+      "pid": 31404,
+      "kernel_dispatches": 9,
+      "confirmations": 9,
+      "browser_writes": [
+        "fill-search",
+        "apply-search"
+      ],
+      "report": {
+        "sku": "DEMO-A",
+        "wb_id": "100000001",
+        "budget": "30 ₽"
+      },
+      "memory_sha256": "e5be95a23166a288b56d3d6904d7eb3246be9fbe765151f14013fd7d4b1266dd",
+      "frames": 22,
+      "autonomous_seconds": 8.562,
+      "source_sha256": {
+        "tests/desktop/xway_executor.mjs": "63fc23d48f3ae86a3971a5f91720d01546d8965131493c0408ea344b8e54d612",
+        "kolos_states/xway_readonly/worker.py": "9a0435a5b846d10a61636b199f7adb7b0c56cf9c383b4dc0d2d23d97c9f8d446",
+        "kolos_states/xway_readonly/protocol.py": "8dcacf81e835f545409dd12cf4d9e8e852f889f65f4ba506588c57454ef6c416",
+        "kolos_states/episode_browser.py": "d9a97a59100fef368e14b90039d4cc8b761e97541275c48515fd37c83ff506a9",
+        "kolos_states/episodes.py": "e57cda6640a3c205d9528963b915c0927a6d9030cc2de7de08440cbd513b0d62",
+        "kolos_states/core.py": "9d162e6521d32a3bb8db097e7a6d4257846310bb6caa289d6e195c4bbf151dc4"
+      },
+      "evidence_directory": "xway-readonly-restored-20261111B",
+      "journal_sha256": "d2cefd2a0213e19b190fa559720f40784c19c428b2797e59f529144b6267f87b"
+    }
+  },
+  "independent_api": {
+    "source": "XWAY MCP list_products",
+    "checked_utc": "2026-11-11 14:49:47 UTC",
+    "shop_id": 101,
+    "sku": "DEMO-A",
+    "wb_id": "100000001",
+    "xway_id": 201,
+    "budget": 30,
+    "ai_enabled": true,
+    "used_during_replay": false
+  },
+  "teaching_steps": 6,
+  "source_memory": "xway-readonly-teach-20261111D/trained-memory/memory.json",
+  "preliminary_failures": {
+    "xway-readonly-trained-20261111A": {
+      "error": "Error: Error: Timed out after 3000ms waiting for selector th >> internal:has-text=\"Артикул продавца\"i >> visible=true: Timed out running CDP command \"Runtime.evaluate\" for tab 1\nlocator.waitFor(visible) timed out for selector th >> internal:has-text=\"Артикул продавца\"i >> visible=true",
+      "dispatches": 0
+    },
+    "xway-readonly-trained-20261111B": {
+      "error": "Error: Error: Catalogue header not ready\n    at readDom (<anonymous>:2690:22)\n    at <anonymous>:2714:14\n    at runUserScript (<anonymous>:2715:10)\n    at <anonymous>:2719:10\n    at <anonymous>:2720:3",
+      "dispatches": 3
+    }
+  },
+  "limitations": [
+    "One held-out product, two successful repeats; not a broad reliability estimate",
+    "Fixed search->read mission and DOM adapter, not visual discovery",
+    "Bootstrap and editor reopening are mechanical code, not learned steps",
+    "No ad-setting changes; screenshot sampling, not full-motion video",
+    "Local hash chains are not externally signed attestations"
+  ],
+  "videos": {
+    "trained": {
+      "file": "trained.mp4",
+      "sha256": "ef02931e04da407329969a4beba524221b7250eccf513aa2e6a5edcfa9511716",
+      "encoded_frames": 111,
+      "fps": 4,
+      "source_frames": 22,
+      "duration_seconds": 27.75,
+      "source_directory": "xway-readonly-trained-20261111C",
+      "presentation": "Original screenshots plus separate journal panel"
+    },
+    "cut": {
+      "file": "cut.mp4",
+      "sha256": "6cf2c7690de72f4746f1a23d29e2016f09aaa80acd688d4eb15357b6bca21505",
+      "encoded_frames": 63,
+      "fps": 4,
+      "source_frames": 10,
+      "duration_seconds": 15.75,
+      "source_directory": "xway-readonly-cut-20261111B",
+      "presentation": "Original screenshots plus separate journal panel"
+    },
+    "empty": {
+      "file": "empty.mp4",
+      "sha256": "bec32691f7a86f908b6237b0ff2dda8f27dd147c6cb8ce7f1fc41904bccf4dad",
+      "encoded_frames": 69,
+      "fps": 4,
+      "source_frames": 10,
+      "duration_seconds": 17.25,
+      "source_directory": "xway-readonly-empty-20261111B",
+      "presentation": "Original screenshots plus separate journal panel"
+    },
+    "restored": {
+      "file": "restored.mp4",
+      "sha256": "bd6146661a82aa3ce7061f39b55554614daa4010f92b5e7ec36f84ec275a8c07",
+      "encoded_frames": 78,
+      "fps": 4,
+      "source_frames": 22,
+      "duration_seconds": 19.5,
+      "source_directory": "xway-readonly-restored-20261111B",
+      "presentation": "Original screenshots plus separate journal panel"
+    }
+  },
+  "tests": {
+    "python": 60,
+    "javascript": 3
+  },
+  "videos_webm": {
+    "trained": {
+      "file": "trained.webm",
+      "sha256": "6a70b4d13bee72e86c18e091a7f9c430dc395a7868a5057a800808b7c1faa3ad",
+      "encoded_frames": 111,
+      "fps": 4,
+      "source_frames": 22,
+      "duration_seconds": 27.75,
+      "source_directory": "xway-readonly-trained-20261111C",
+      "presentation": "Original screenshots plus separate journal panel"
+    },
+    "cut": {
+      "file": "cut.webm",
+      "sha256": "ba48b1f4561b726172ed40c2996afc5c3239ffe07c803946213b5cd5ba155fd5",
+      "encoded_frames": 63,
+      "fps": 4,
+      "source_frames": 10,
+      "duration_seconds": 15.75,
+      "source_directory": "xway-readonly-cut-20261111B",
+      "presentation": "Original screenshots plus separate journal panel"
+    },
+    "empty": {
+      "file": "empty.webm",
+      "sha256": "beb070f151352f6be12b2ed5015ec7f5b39b2eb057538abdd1fb5eb2e30be89c",
+      "encoded_frames": 69,
+      "fps": 4,
+      "source_frames": 10,
+      "duration_seconds": 17.25,
+      "source_directory": "xway-readonly-empty-20261111B",
+      "presentation": "Original screenshots plus separate journal panel"
+    },
+    "restored": {
+      "file": "restored.webm",
+      "sha256": "49ab9866e3147338b5a734706797064f6751ac72c0b22b16090581c6650fb72d",
+      "encoded_frames": 78,
+      "fps": 4,
+      "source_frames": 22,
+      "duration_seconds": 19.5,
+      "source_directory": "xway-readonly-restored-20261111B",
+      "presentation": "Original screenshots plus separate journal panel"
+    }
+  }
+}

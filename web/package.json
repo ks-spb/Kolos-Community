@@ -1,0 +1,28 @@
+{
+  "name": "kolos-graph-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "node build.mjs && node signal/package.mjs && node disinhibition/package.mjs && node states/package.mjs && node neurons/package.mjs && node shared/package.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "dev": "node signal/dev.mjs",
+    "test:browser": "python tests/browser_smoke.py && python tests/signal_browser.py && python tests/disinhibition_browser.py && python tests/states_browser.py && python tests/neurons_browser.py",
+    "test:acceptance": "npm run build && node --test tests/states.test.mjs tests/goals.test.mjs tests/imagery.test.mjs tests/language.test.mjs tests/shared.test.mjs && node tests/capabilities_report.mjs && node tests/imagery_report.mjs && node tests/language_report.mjs && node tests/shared_report.mjs",
+    "test:acceptance:browser": "python tests/states_browser.py && python tests/goals_browser.py && python tests/imagery_browser.py && python tests/language_browser.py && python tests/neurons_browser.py && python tests/shared_browser.py",
+    "test:acceptance:exhaustive": "npm run test:acceptance && node tests/states_benchmark.mjs",
+    "test:imagery": "npm run build && node --test tests/imagery.test.mjs && node tests/imagery_report.mjs",
+    "test:language": "npm run build && node --test tests/language.test.mjs && node tests/language_report.mjs",
+    "test:neurons": "node --test tests/neurons.test.mjs",
+    "test:neurons:browser": "python tests/neurons_browser.py",
+    "test:shared": "npm run build && node --test tests/shared.test.mjs && node tests/shared_report.mjs",
+    "test:shared:browser": "python tests/shared_browser.py"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "schema": "kolos-working-episode/1",
+  "passed": true,
+  "regressionsBefore": [
+    {
+      "number": 1,
+      "passed": true
+    },
+    {
+      "number": 2,
+      "passed": true
+    },
+    {
+      "number": 3,
+      "passed": true
+    },
+    {
+      "number": 4,
+      "passed": true
+    },
+    {
+      "number": 5,
+      "passed": true
+    },
+    {
+      "number": 6,
+      "passed": true
+    },
+    {
+      "number": 7,
+      "passed": true
+    },
+    {
+      "number": 8,
+      "passed": true
+    },
+    {
+      "number": 9,
+      "passed": true
+    },
+    {
+      "number": 10,
+      "passed": true
+    },
+    {
+      "number": 11,
+      "passed": true
+    },
+    {
+      "number": 12,
+      "passed": true
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": "E13",
+      "variant": "new-value",
+      "value": "new-6143",
+      "layout": 0,
+      "passed": true,
+      "checks": {
+        "complete": true,
+        "sourcesUnchanged": true,
+        "targetsExact": true,
+        "savedExact": true,
+        "unrelatedUnchanged": true,
+        "memoryUnchanged": true,
+        "workingMemoryCleared": true
+      },
+      "ticks": 4
+    },
+    {
+      "experiment": "E13",
+      "variant": "new-layout-and-value",
+      "value": "  новая строка Ω 🙂  ",
+      "layout": 1,
+      "passed": true,
+      "checks": {
+        "complete": true,
+        "sourcesUnchanged": true,
+        "targetsExact": true,
+        "savedExact": true,
+        "unrelatedUnchanged": true,
+        "memoryUnchanged": true,
+        "workingMemoryCleared": true
+      },
+      "ticks": 4
+    },
+    {
+      "experiment": "E13",
+      "variant": "new-layout-and-value",
+      "value": "",
+      "layout": 2,
+      "passed": true,
+      "checks": {
+        "complete": true,
+        "sourcesUnchanged": true,
+        "targetsExact": true,
+        "savedExact": true,
+        "unrelatedUnchanged": true,
+        "memoryUnchanged": true,
+        "workingMemoryCleared": true
+      },
+      "ticks": 4
+    },
+    {
+      "experiment": "E13",
+      "variant": "new-layout-and-value",
+      "value": "line one\nline two\tend",
+      "layout": 3,
+      "passed": true,
+      "checks": {
+        "complete": true,
+        "sourcesUnchanged": true,
+        "targetsExact": true,
+        "savedExact": true,
+        "unrelatedUnchanged": true,
+        "memoryUnchanged": true,
+        "workingMemoryCleared": true
+      },
+      "ticks": 4
+    }
+  ],
+  "multipleFields": {
+    "passed": true,
+    "checks": {
+      "complete": true,
+      "sourcesUnchanged": true,
+      "targetsExact": true,
+      "savedExact": true,
+      "unrelatedUnchanged": true,
+      "memoryUnchanged": true,
+      "workingMemoryCleared": true
+    }
+  },
+  "regressionsAfter": [
+    {
+      "number": 12,
+      "passed": true
+    },
+    {
+      "number": 11,
+      "passed": true
+    },
+    {
+      "number": 10,
+      "passed": true
+    },
+    {
+      "number": 9,
+      "passed": true
+    },
+    {
+      "number": 8,
+      "passed": true
+    },
+    {
+      "number": 7,
+      "passed": true
+    },
+    {
+      "number": 6,
+      "passed": true
+    },
+    {
+      "number": 5,
+      "passed": true
+    },
+    {
+      "number": 4,
+      "passed": true
+    },
+    {
+      "number": 3,
+      "passed": true
+    },
+    {
+      "number": 2,
+      "passed": true
+    },
+    {
+      "number": 1,
+      "passed": true
+    }
+  ],
+  "memorySHA256": "6962c01993b78855fcf2e3f975fbbeec7569f69f7148e9e726a4825e012de77e",
+  "scope": "Model environment; native Windows UI Automation is tested separately."
+}

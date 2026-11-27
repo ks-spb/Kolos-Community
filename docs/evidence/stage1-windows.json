@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "nativeRuns": [
+    {
+      "value": "new 6143",
+      "layout": 0,
+      "passed": true,
+      "operations": 3,
+      "sourceRuntimeId": "uia:12257136",
+      "sourceBounds": [
+        358,
+        199,
+        971,
+        247
+      ],
+      "saved": "new 6143",
+      "verifiedBy": [
+        "two-fresh-uia-observations"
+      ]
+    },
+    {
+      "value": "  новая строка Ω  ",
+      "layout": 1,
+      "passed": true,
+      "operations": 3,
+      "sourceRuntimeId": "uia:1837054",
+      "sourceBounds": [
+        458,
+        394,
+        1071,
+        442
+      ],
+      "saved": "  новая строка Ω  ",
+      "verifiedBy": [
+        "two-fresh-uia-observations"
+      ]
+    },
+    {
+      "value": "",
+      "layout": 0,
+      "passed": true,
+      "operations": 3,
+      "sourceRuntimeId": "uia:12388208",
+      "sourceBounds": [
+        358,
+        199,
+        971,
+        247
+      ],
+      "saved": "",
+      "verifiedBy": [
+        "two-fresh-uia-observations"
+      ]
+    }
+  ],
+  "reloadPassed": true,
+  "regression1to12BeforeAfter": true,
+  "scope": "Real Win32 controls observed through UI Automation"
+}

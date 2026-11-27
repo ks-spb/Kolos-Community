@@ -1,0 +1,109 @@
+name: Kolos Desktop
+on:
+  push:
+    branches: [main]
+    paths: ['Glaz/**', 'kolos_states/**', 'tests/desktop/**', 'web/states/**', 'run_main*', 'requirements-states.txt', '.github/workflows/kolos-desktop.yml']
+  pull_request:
+    paths: ['Glaz/**', 'kolos_states/**', 'tests/desktop/**', 'web/states/**', 'run_main*', 'requirements-states.txt', '.github/workflows/kolos-desktop.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: kolos-desktop-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-kernel:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m compileall -q Glaz kolos_states
+      - name: Install cross-platform vision dependencies for desktop unit tests
+        run: python -m pip install -r Glaz/requirements.txt
+      - name: Four original + six goal scenarios, per-tick parity and safe boundaries
+        run: python -m unittest discover -s tests/desktop -v
+      - name: Native selftest without desktop I/O
+        run: python -m kolos_states.cli --selftest
+      - name: Ten capabilities on isolated native environment
+        run: python -m kolos_states.cli --acceptance
+      - name: Working episode and role transfer on the shared 1-12 memory
+        run: python -m kolos_states.episode_experiment --evidence tests/desktop-output/stage1-model.json
+      - name: Install Windows observation/input dependencies
+        if: runner.os == 'Windows'
+        run: python -m pip install -r requirements-states.txt
+      - name: Real Glaz startup and accessible Win32 field smoke (not arbitrary apps)
+        if: runner.os == 'Windows'
+        env:
+          KOLOS_WINDOWS_SMOKE: '1'
+          PYTHONIOENCODING: utf-8
+        run: python -m unittest discover -s tests/desktop -p test_windows.py -v
+      - name: Real native working episode, changed layout, restart and safe failure
+        if: runner.os == 'Windows'
+        env:
+          KOLOS_EPISODE_WINDOWS_SMOKE: '1'
+          PYTHONIOENCODING: utf-8
+        run: |
+          python -m unittest discover -s tests/desktop -p test_episode_windows.py -v
+          python -m unittest discover -s tests/desktop -p test_episode_ui.py -v
+      - name: Inline Tk neurons and uninterrupted workspace switch
+        if: runner.os == 'Windows'
+        env:
+          KOLOS_INLINE_GUI_SMOKE: '1'
+          PYTHONIOENCODING: utf-8
+        run: python -m unittest discover -s tests/desktop -p test_inline_neurons.py -v
+      - name: Neural Studio desktop theme, shared terminal and read-only canvas
+        if: runner.os == 'Windows'
+        env:
+          KOLOS_STUDIO_GUI_SMOKE: '1'
+          PYTHONIOENCODING: utf-8
+        run: python -m unittest discover -s tests/desktop -p test_neural_studio.py -v
+      - uses: actions/upload-artifact@v4
+        if: always() && runner.os == 'Windows'
+        with:
+          name: kolos-desktop-windows-evidence
+          path: tests/desktop-output/
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: runner.os == 'Linux'
+        with:
+          name: kolos-desktop-source
+          path: |
+            Glaz/*.py
+            Glaz/*.md
+            Glaz/requirements*.txt
+            cv_core/*.py
+            kolos_states/*.py
+            kolos_states/shared_fixture.json
+            kolos_states/*.md
+            README.md
+            docs/STAGE1_EPISODES.md
+            tests/desktop/*.py
+            tests/desktop/*.mjs
+            run_main.bat
+            run_classic.bat
+            install_states.bat
+            requirements*.txt
+            main.py
+            web/bundle-source.mjs
+            web/states/
+            web/neurons/
+            web/shared/
+            web/NEURONS.md
+            web/SHARED.md
+            web/tests/states*.mjs
+            web/ACCEPTANCE.md
+            web/LANGUAGE.md
+            web/CAPABILITIES.md
+            .github/workflows/kolos-desktop.yml
+          include-hidden-files: true
+          retention-days: 14

@@ -1,0 +1,73 @@
+{
+  "schema": "kolos-object-concepts-evidence/1",
+  "recordedAt": "2026-10-09T15:55:51.223506+00:00",
+  "base": "7af77365cc41e8ba847f888a464653424f1038fa",
+  "branch": "feature/object-concepts-20261009",
+  "passed": true,
+  "suites": [
+    {
+      "suite": "concepts",
+      "exit": 0,
+      "seconds": 8.24,
+      "tests": 54,
+      "skipped": 0,
+      "passed": 54,
+      "logSHA256": "3a45256f705fff9ebf1be12ca660e8343f27e0c9d928853a67d33e180e053c30"
+    },
+    {
+      "suite": "perception",
+      "exit": 0,
+      "seconds": 5.28,
+      "tests": 39,
+      "skipped": 1,
+      "passed": 38,
+      "logSHA256": "e81cbb63c5cf3936debf2efa5786e8139017d714330a4dee4512b643a4750785"
+    },
+    {
+      "suite": "desktop",
+      "exit": 0,
+      "seconds": 80.22,
+      "tests": 271,
+      "skipped": 26,
+      "passed": 245,
+      "logSHA256": "b6d28379ea38ccccc0f03545841ff3139fc0c28af76abd0a697ed4bc0267e232"
+    },
+    {
+      "suite": "root",
+      "exit": 0,
+      "seconds": 9.69,
+      "tests": 141,
+      "skipped": 1,
+      "passed": 140,
+      "logSHA256": "181e53b43088a77b3cf985f313831e8c60374c6d310bd07a279d326a879a79ee"
+    },
+    {
+      "suite": "javascript",
+      "exit": 0,
+      "seconds": 232.41,
+      "tests": 237,
+      "passed": 237,
+      "skipped": 0,
+      "logSHA256": "16fda8ce3bbc475efec0e84c928a057b6bf59a30b4201a4f8dd8cfe640325e3e"
+    }
+  ],
+  "python": {
+    "discovered": 505,
+    "passed": 477,
+    "skipped": 28
+  },
+  "javascript": {
+    "passed": 237,
+    "skipped": 0
+  },
+  "checks": {
+    "previousAbilities1to12InSameMemory": true,
+    "workingEpisodeE13InSameMemory": true,
+    "ownTkQuestionDialog": true,
+    "rawSensoryIdsPreserved": true,
+    "legacyLaunchRejected": true,
+    "temporaryCopyOfExistingMemoryMigrated": true
+  },
+  "scope": "Model motor I/O and native own Tk dialog. User O1 on a live folder was not physically executed. Optional native desktop checks are listed as skipped.",
+  "screenshotScope": "Actual Tk UI using synthetic test images; not private user screen data."
+}
