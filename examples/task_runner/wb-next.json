@@ -1,0 +1,71 @@
+{
+  "rule_version": "v2",
+  "observed_at": "2026-11-27T09:00:00+03:00",
+  "expected_ids": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06"
+  ],
+  "manifest": {
+    "expected_promotions": 6,
+    "unique_products": 0,
+    "collected": [
+      {
+        "promotion_id": "R02",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R03",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R03",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R04",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R04",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R04",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R05",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R05",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R06",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R06",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      },
+      {
+        "promotion_id": "R05",
+        "observed_at": "2026-11-26T23:59:59+03:00"
+      },
+      {
+        "promotion_id": "R99",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      }
+    ],
+    "failed": [
+      {
+        "promotion_id": "R06"
+      }
+    ]
+  }
+}

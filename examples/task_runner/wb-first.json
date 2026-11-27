@@ -1,0 +1,19 @@
+{
+  "rule_version": "v2",
+  "observed_at": "2026-11-27T09:00:00+03:00",
+  "expected_ids": [
+    "P01",
+    "P02"
+  ],
+  "manifest": {
+    "expected_promotions": 2,
+    "unique_products": 0,
+    "collected": [
+      {
+        "promotion_id": "P02",
+        "observed_at": "2026-11-27T09:00:00+03:00"
+      }
+    ],
+    "failed": []
+  }
+}

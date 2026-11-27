@@ -1,0 +1,137 @@
+{
+  "id": "wb-promotion-coverage",
+  "kind": "wb-promotions",
+  "instruction": "Для каждой ожидаемой акции требуется ровно две свежие выгрузки.",
+  "checks": [
+    {
+      "input": {
+        "rule_version": "v2",
+        "observed_at": "2026-11-27T09:00:00+03:00",
+        "expected_ids": [
+          "B01",
+          "B02"
+        ],
+        "manifest": {
+          "expected_promotions": 2,
+          "unique_products": 0,
+          "collected": [
+            {
+              "promotion_id": "B02",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            }
+          ],
+          "failed": []
+        }
+      },
+      "expected": {
+        "missing_ids": [
+          "B01",
+          "B02"
+        ],
+        "complete_ids": [],
+        "excess_fresh_ids": [],
+        "duplicate_ids": [],
+        "failed_ids": [],
+        "stale_ids": [],
+        "unexpected_ids": []
+      }
+    },
+    {
+      "input": {
+        "rule_version": "v2",
+        "observed_at": "2026-11-27T09:00:00+03:00",
+        "expected_ids": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06"
+        ],
+        "manifest": {
+          "expected_promotions": 6,
+          "unique_products": 0,
+          "collected": [
+            {
+              "promotion_id": "C02",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C03",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C03",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C04",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C04",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C04",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C05",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C05",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C06",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C06",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            },
+            {
+              "promotion_id": "C05",
+              "observed_at": "2026-11-26T23:59:59+03:00"
+            },
+            {
+              "promotion_id": "C99",
+              "observed_at": "2026-11-27T09:00:00+03:00"
+            }
+          ],
+          "failed": [
+            {
+              "promotion_id": "C06"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "missing_ids": [
+          "C01",
+          "C02"
+        ],
+        "complete_ids": [
+          "C03",
+          "C05",
+          "C06"
+        ],
+        "excess_fresh_ids": [
+          "C04"
+        ],
+        "duplicate_ids": [],
+        "failed_ids": [
+          "C06"
+        ],
+        "stale_ids": [
+          "C05"
+        ],
+        "unexpected_ids": [
+          "C99"
+        ]
+      }
+    }
+  ]
+}
