@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -17,6 +18,7 @@ PROFILE = tuple(flag for name in FEATURES for flag in ('--disable', name)) + (
 )
 USAGE_KEYS = ('input_tokens', 'output_tokens', 'cached_input_tokens')
 ALLOWED_ITEMS = {'agent_message', 'reasoning', 'plan'}
+PROCESS_FLAGS = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
 
 
 class CodexUnavailable(ValueError):
@@ -92,8 +94,8 @@ def turn_result(stdout: str | bytes | None, failure: str | None = None) -> dict:
 
 
 class Codex:
-    def __init__(self, model: str, scratch: Path) -> None:
-        exe = shutil.which('codex')
+    def __init__(self, model: str | None, scratch: Path, *, executable: Path | None = None) -> None:
+        exe = executable or shutil.which('codex')
         if not exe:
             raise CodexUnavailable('Codex CLI не найден в PATH')
         home = Path.home().resolve()
@@ -114,7 +116,7 @@ class Codex:
     def _inspect(self, *args: str) -> str:
         try:
             run = subprocess.run([self.exe, *args], cwd=self.scratch, capture_output=True,
-                                 encoding='utf-8', errors='replace', timeout=10)
+                                 encoding='utf-8', errors='replace', timeout=10, creationflags=PROCESS_FLAGS)
         except (OSError, subprocess.TimeoutExpired) as error:
             raise CodexUnavailable('Не удалось проверить установленный Codex CLI') from error
         if run.returncode:
@@ -123,16 +125,17 @@ class Codex:
 
     def __call__(self, prompt: str, schema: dict) -> dict:
         started = monotonic()
-        with TemporaryDirectory(dir=self.scratch) as name:
+        with TemporaryDirectory(dir=self.scratch, ignore_cleanup_errors=True) as name:
             cwd = Path(name)
             schema_path = cwd / 'response-schema.json'
             atomic_json(schema_path, schema)
+            model_arg = ['--model', self.model] if self.model else []
             command = [self.exe, 'exec', '--strict-config', '--ephemeral', '--ignore-user-config',
                        '--skip-git-repo-check', '--sandbox', 'read-only', '-C', str(cwd),
-                       '--model', self.model, *PROFILE, '--output-schema', str(schema_path), '--json', '-']
+                       *model_arg, *PROFILE, '--output-schema', str(schema_path), '--json', '-']
             try:
                 run = subprocess.run(command, input=prompt, cwd=cwd, encoding='utf-8',
-                                     errors='replace', capture_output=True, timeout=120)
+                                     errors='replace', capture_output=True, timeout=120, creationflags=PROCESS_FLAGS)
             except subprocess.TimeoutExpired as error:
                 result = turn_result(error.stdout, 'codex_timeout')
             except OSError:

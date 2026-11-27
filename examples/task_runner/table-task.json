@@ -1,0 +1,17 @@
+{
+  "id": "table-sum-by-category",
+  "kind": "table",
+  "instruction": "Суммируй units по category, включая только строки с units больше двух.",
+  "columns": {"category": "text", "units": "integer"},
+  "result": "mapping",
+  "checks": [
+    {
+      "input": [{"category": "A", "units": 2}, {"category": "A", "units": 3}, {"category": "B", "units": 1}],
+      "expected": {"A": 3}
+    },
+    {
+      "input": [{"category": "B", "units": 5}, {"category": "C", "units": 6}, {"category": "B", "units": 3}],
+      "expected": {"B": 8, "C": 6}
+    }
+  ]
+}
